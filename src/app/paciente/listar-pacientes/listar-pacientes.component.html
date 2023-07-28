@@ -1,0 +1,100 @@
+<p>listar-pacientes works!</p>
+<!--
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Data de Nascimento</th>
+      <th>Idade</th>
+      <th>RG</th>
+      <th>Estado Civil</th>
+      <th>Filhos</th>
+      <th>Nome do Responsável</th>
+      <th>Telefone</th>
+      <th>Profissão</th>
+      <th>Deficiente</th>
+      <th>Deficiência</th>
+      <th>Deficiência na Família</th>
+      <th>Convênio</th>
+      <th>Observação</th>
+      <th>Aceite</th>
+      <th>Atendente</th>
+      <th>Médico Atendente</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let paciente of pacientes">
+      <td>{{ paciente.id }}</td>
+      <td>{{ paciente.nome }}</td>
+      <td>{{ paciente.dataNasc }}</td>
+      <td>{{ paciente.idade }}</td>
+      <td>{{ paciente.estadoCivil }}</td>
+      <td>{{ paciente.filhos }}</td>
+      <td>{{ paciente.nomeResponsavelPaciente }}</td>
+      <td>{{ paciente.contato.telefone }}</td>
+      <td>{{ paciente.profissao }}</td>
+      <td>{{ paciente.deficiente }}</td>
+      <td>{{ paciente.deficiencia }}</td>
+      <td>{{ paciente.deficienciaFamilia }}</td>
+      <td>{{ paciente.convenio }}</td>
+      <td>{{ paciente.observacao }}</td>
+      <td>{{ paciente.aceite }}</td>
+    </tr>
+  </tbody>
+</table>
+ -->
+
+
+
+
+
+
+
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">RG</th>
+      <th scope="col">Data de Nascimento</th>
+      <th scope="col">Idade</th>
+      <th scope="col">Contato</th>
+      <th scope="col">Adicionar</th>
+      <th scope="col">Apagar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let paciente of pacientes">
+      <th scope="row">{{ paciente.id }}</th>
+      <td>{{ paciente.nome }}</td>
+      <td>{{ paciente.rg }}</td>
+      <td>{{ paciente.dataNasc | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ paciente.idade }}</td>
+      <td>{{ paciente.contato.celular }}</td>
+      <!-- <td><button (click)="adicionarPaciente(paciente)">Adicionar</button></td> -->
+      <!-- <td><button (click)="apagarPaciente(paciente)">Apagar</button></td> -->
+    </tr>
+  </tbody>
+</table>
+
+<ngb-pagination
+  [collectionSize]="totalItems"
+  [(page)]="currentPage"
+  [pageSize]="itemsPerPage"
+  (pageChange)="pageChanged($event)">
+</ngb-pagination>
+
+
+
+
+
+
+
+
+
+
+

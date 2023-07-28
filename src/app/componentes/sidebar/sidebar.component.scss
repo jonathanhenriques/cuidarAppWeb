@@ -1,0 +1,31 @@
+nav {
+  background-color: #333; /* cor de fundo da barra lateral */
+  height: 100%; /* altura da barra lateral */
+  position: fixed; /* fixa a barra lateral no lugar */
+  top: 0;
+  left: 0;
+  width: 200px; /* largura da barra lateral */
+  padding-top: 60px; /* espaço para evitar que os links fiquem colados na parte superior */
+  box-sizing: border-box; /* inclui o padding no cálculo da largura */
+}
+
+nav ul {
+  list-style-type: none; /* remove a lista padrão */
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  padding: 10px; /* espaço ao redor dos links */
+  padding-left: 3rem;
+}
+
+nav a {
+  color: #fff; /* cor do texto dos links */
+  text-decoration: none; /* remove sublinhado dos links */
+  display: block; /* torna o link um bloco para ocupar a largura total da barra lateral */
+}
+
+nav a:hover {
+  background-color: #555; /* cor de fundo ao passar o mouse sobre os links */
+}
