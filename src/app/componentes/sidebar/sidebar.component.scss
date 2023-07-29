@@ -4,20 +4,22 @@ nav {
   position: fixed; /* fixa a barra lateral no lugar */
   top: 0;
   left: 0;
-  width: 200px; /* largura da barra lateral */
+  width: 130px; /* largura da barra lateral */
   padding-top: 60px; /* espaço para evitar que os links fiquem colados na parte superior */
   box-sizing: border-box; /* inclui o padding no cálculo da largura */
 }
 
+// ajuste das opcoes do menu
 nav ul {
   list-style-type: none; /* remove a lista padrão */
   margin: 0;
   padding: 0;
 }
 
+// ajuste das opcoes do menu
 nav li {
-  padding: 10px; /* espaço ao redor dos links */
-  padding-left: 3rem;
+  padding: 5px; /* espaço ao redor dos links */
+  padding-left: 1.5rem;
 }
 
 nav a {

@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, firstValueFrom, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { PacienteED}from '../models/PacienteED';
+import { PacienteFiltro } from '../models/filtros/PacienteFiltro';
 
 
 @Injectable({
@@ -11,13 +12,11 @@ import { PacienteED}from '../models/PacienteED';
 })
 export class PacientesService {
 
-  constructor(private http: HttpClient) {}
+  pacientesUrl: string
 
-  // token = {
-    //   headers: new HttpHeaders(),
-    // };
-
-    url = environment.urlTeste;
+  constructor(private http: HttpClient) {
+    this.pacientesUrl = `${environment.urlTeste}/pacientes`
+  }
 
   // valor = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmcm9kb0BlbWFpbC5jb20iLCJpc3MiOiJBUEkgSW5zdGl0dXRvIENyaWFyIiwiZXhwIjoxNjgzNDM3MTI1fQ.aJy2GNe-9cGmrmPMC5Y8nTHjPie9suHVobLD_VIsYKw'
 
@@ -29,80 +28,102 @@ export class PacientesService {
   // private baseUrl = 'http://localhost:8081/api/v1/pacientes';
 
   obterPacientePorId(id: number): Observable<PacienteED> {
-    const url = `${this.url}/pacientes/${id}`;
-    return this.http.get<PacienteED>(url);
+    const url = `${this.pacientesUrl}/${id}`;
+    return this.http.get<PacienteED>(this.pacientesUrl);
   }
 
   getAll(): Observable<any[]> {
-    return this.http.get<any>(`${this.url}/usuario/todos`/*, this.token*/).pipe(
+    return this.http.get<any>(`${this.pacientesUrl}/usuario/todos`/*, this.token*/).pipe(
       tap(response => console.log(response)));
   }
 
 
   obterTodosPacientes(): Promise<any[]> {
-    return firstValueFrom(this.http.get<any[]>(`${this.url}/pacientes`/*, this.token*/))
+    return firstValueFrom(this.http.get<any[]>(`${this.pacientesUrl}`/*, this.token*/))
     .then((response: any) => response['content']);
   }
 
 
 
   cadastrarPaciente(paciente: any): Observable<any> {
-    return this.http.post<any>(`${this.url}/pacientes`, paciente /*,this.token*/).pipe(
+    return this.http.post<any>(`${this.pacientesUrl}`, paciente /*,this.token*/).pipe(
       tap(response => console.log('respo : '+response)));
   }
 
 
-  getAllPacientes(): Promise<any[]> {
-    return firstValueFrom(this.http.get<any[]>(`${this.url}/pacientes`/*, this.token*/))
-    .then((response: any) => response['content']);
+  getAllPacientes(filtro: PacienteFiltro): Promise<any> {
+
+    // const headers = new HttpHeaders()
+    //   .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+
+    let params = new HttpParams()
+      .set('page', filtro.pagina.toString()) // Converte para string
+      .set('size', filtro.itensPorPagina.toString()); // Converte para string
+
+
+    if (filtro.ativo) {
+      params = params.set('descricao', filtro.ativo);
+    }
+
+    return firstValueFrom(this.http.get(`${this.pacientesUrl}`, { params }))
+    .then((response: any) => {
+      const pacientes = response['content'];
+
+      const resultado = {
+        pacientes,
+        total: response['totalElements']
+      }
+
+      return resultado;
+    });
   }
 
   getAllPacientesAtivos(ativo: boolean): Observable<PacienteED[]> {
     return this.http.get<PacienteED[]>(
-    this.url + `/pacientes/isAtivo/${ativo}` /*this.token*/
+    this.pacientesUrl + `/isAtivo/${ativo}` /*this.token*/
     );
   }
 
   getPacienteById(id: number): Observable<PacienteED> {
     return this.http.get<PacienteED>(
-      this.url + `/pacientes/${id}` /*this.token*/
+      this.pacientesUrl + `/${id}` /*this.token*/
     );
   }
 
   getPacientesByNome(nome: string): Observable<PacienteED[]> {
     return this.http.get<PacienteED[]>(
-      this.url + `pacientes/nomePaciente/${nome}` /*this.token*/
+      this.pacientesUrl + `/nomePaciente/${nome}` /*this.token*/
       );
     }
 
   getPacientesByNomeExame(nomeExame: string): Observable<PacienteED[]> {
     return this.http.get<PacienteED[]>(
-    this.url + `pacientes/nomeExame/${nomeExame}` /*this.token*/
+    this.pacientesUrl + `/nomeExame/${nomeExame}` /*this.token*/
     );
   }
 
   getPacientesPorEndereco(nomeRua: string): Observable<PacienteED[]> {
     return this.http.get<PacienteED[]>(
-    this.url + `/provas/descricao/${nomeRua}` /*this.token*/
+    this.pacientesUrl + `/provas/descricao/${nomeRua}` /*this.token*/
     );
   }
 
   postPaciente(paciente: PacienteED): Observable<PacienteED> {
     return this.http.post<PacienteED>(
-      this.url + '/pacientes',
+      this.pacientesUrl,
       paciente /*this.token*/
     );
   }
 
   putPaciente(paciente: PacienteED): Observable<PacienteED> {
     return this.http.put<PacienteED>(
-      this.url + '/pacientes',
+      this.pacientesUrl,
       paciente /*this.token*/
     );
   }
 
   deleteLogicoPaciente(id: number) {
-    return this.http.delete(this.url + `/pacientes/${id}` /*this.token*/);
+    return this.http.delete(this.pacientesUrl + `/${id}` /*this.token*/);
   }
 }
 

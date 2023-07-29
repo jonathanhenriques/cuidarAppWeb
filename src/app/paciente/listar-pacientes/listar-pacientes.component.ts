@@ -1,6 +1,7 @@
 // import { DialogExame } from 'src/app/shared/dialog-util/dialog-exame.component';
 import { Component, OnInit } from '@angular/core';
 import { PacienteED } from 'src/app/models/PacienteED';
+import { PacienteFiltro } from 'src/app/models/filtros/PacienteFiltro';
 // import { MatDialog } from '@angular/material/dialog';
 import { PacientesService } from 'src/app/service/paciente.service';
 
@@ -14,10 +15,11 @@ import { PacientesService } from 'src/app/service/paciente.service';
 export class ListarPacientesComponent implements OnInit {
 
   private paciente: PacienteED = new PacienteED();
+  filtro = new PacienteFiltro();
 
   pacientes: PacienteED[] = [];
 
-  currentPage = 1;
+  currentPage: number = 0;
   totalItems = 0;
   itemsPerPage = 5;
 
@@ -27,17 +29,22 @@ export class ListarPacientesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.listarPacientes();
+    this.listarPacientes(this.currentPage);
   }
 
-  listarPacientes(): void {
+  
+
+  listarPacientes(pagina: number): void {
+    this.filtro.pagina = pagina;
+
     this.pacienteService
-    .getAllPacientes()
+    .getAllPacientes(this.filtro)
     .then((dataPacientes: any) => {
-      this.pacientes = dataPacientes;
-      this.totalItems = dataPacientes.totalElements;
+      this.pacientes = dataPacientes.pacientes;
+      this.totalItems = dataPacientes.total;
       console.table(this.pacientes)
-      console.table(this.pacientes[0].nome)
+      console.warn(this.totalItems)
+      // console.table(this.pacientes[0].nome)
     },
     error => {
       console.log('Erro ao obter pacientes:', error);
@@ -46,8 +53,9 @@ export class ListarPacientesComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    this.currentPage = event.page;
-    this.listarPacientes();
+    // this.currentPage =  event!.first! / event!.rows!;
+    console.log(`pag: ${this.currentPage-1}`)
+    this.listarPacientes(this.currentPage-1);
   }
 
   listarPacientesAtivos(): void {

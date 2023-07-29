@@ -1,12 +1,30 @@
-
+/* Estilos padrão que se aplicam para largura de tela maior que 768px */
 .componente {
   display: flex;
 }
 
 .bar {
-  flex: 1;
+  flex: 0.15;
 }
 
 .conteudo {
   flex: 1;
+  margin: 0;
+}
+
+/* Estilos específicos para telas menores, incluindo telas de celular */
+@media (max-width: 768px) {
+  .componente {
+    flex-direction: column; /* Defina a direção do flex para coluna para empilhar os elementos verticalmente em telas menores */
+  }
+
+  .bar {
+    flex: 0; /* Altere o flex para 0 para que a .bar não ocupe espaço em telas menores */
+  }
+
+  .conteudo {
+    flex: 1; /* Mantenha o flex para ocupar todo o espaço disponível em telas menores */
+  }
+
+  
 }

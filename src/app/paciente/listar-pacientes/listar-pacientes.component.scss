@@ -1,21 +1,18 @@
 table {
-  width: 100%;
-}
-
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-
-td, th {
-  width: 25%;
+  width: 80%;
 }
 
 
-.parent-container {
-  display: flex;
-  justify-content: center;
-}
+
+// td, th {
+//   width: 25%;
+// }
+
+
+// .parent-container {
+//   display: flex;
+//   justify-content: center;
+// }
 
 .container {
   width: 100%;
@@ -24,3 +21,12 @@ td, th {
 a {
   text-decoration: none;
 }
+
+// remove a palavra current do ngb-pagination
+:host ::ng-deep .pagination > li.page-item.active > a.page-link > span {
+  display: none;
+}
+
+
+
+
