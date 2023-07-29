@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ListarPacientesComponent } from './listar-pacientes/listar-pacientes.component';
+import { CadastrarPacienteComponent } from './cadastrar-paciente/cadastrar-paciente.component';
 
 
 
 const routes: Routes = [
-  // { path: 'cadastrar', component: CadastrarPacientesComponent  },
+  { path: 'cadastrar', component: CadastrarPacienteComponent  },
   { path: 'listar', component: ListarPacientesComponent  },
   // { path: 'detalhe-paciente/:id', component: DetailsPacienteComponent  },
 ];

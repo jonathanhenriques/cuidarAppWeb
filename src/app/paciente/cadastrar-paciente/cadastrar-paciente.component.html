@@ -1,0 +1,245 @@
+
+<div class="container">
+
+  <!-- <h1 class="titulo">Cadastrar Paciente</h1> -->
+
+  <form class="formulario" [formGroup]="formularioDeUsuario" (ngSubmit)="enviarDados()">
+    <div class="paciente-box">
+      <div class="identificador">Informações Pessoais</div>
+      <div class="linha">
+        <div class="input-box">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" formControlName="nome" />
+        </div>
+        <div class="input-box">
+          <label for="dataNasc">Data de Nascimento:</label>
+          <input type="date" id="dataNasc" formControlName="dataNasc" />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="idade">Idade:</label>
+          <input type="number"id="idade"formControlName="idade" min="0"max="100"
+          />
+        </div>
+        <div class="input-box">
+          <label for="rg">RG:</label>
+          <input type="text" id="rg" formControlName="rg" />
+        </div>
+        <div class="input-box">
+          <label for="estadoCivil">Estado Civil:</label>
+          <select id="estadoCivil" formControlName="estadoCivil">
+            <option selected>-Selecione-</option>
+            <option value="SOLTEIRO">Solteiro</option>
+            <option value="CASADO">Casado</option>
+            <option value="DIVORCIADO">Divorciado</option>
+            <option value="VIUVO">Viúvo</option>
+          </select>
+        </div>
+      </div>
+
+
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="filhos">Tem filhos?</label>
+          <input type="number" id="filhos" formControlName="filhos" min="0" max="20" />
+        </div>
+        <div class="input-box">
+          <label for="nomeResponsavelPaciente">Nome do Responsável:</label>
+          <input
+            type="text" id="nomeResponsavelPaciente" formControlName="nomeResponsavelPaciente"
+          />
+        </div>
+      </div>
+
+      <div class="input-box">
+        <label for="profissao">Profissão:</label>
+        <input type="text" id="profissao" formControlName="profissao" />
+      </div>
+    </div>
+
+    <div class="contato-box">
+      <hr>
+      <div class="identificador">Contato</div>
+      <div class="linha">
+        <div class="input-box">
+          <label for="celular">Celular:</label>
+          <input type="text" id="celular" formControlName="celular" />
+        </div>
+        <div class="input-box">
+          <label for="telefone">Telefone:</label>
+          <input type="text" id="telefone" formControlName="telefone" />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="contFacebook">Facebook:</label>
+          <input type="text" id="contFacebook" formControlName="contFacebook" />
+        </div>
+        <div class="input-box">
+          <label for="contInstagram">Instagram:</label>
+          <input type="text" id="contInstagram" formControlName="contInstagram" />
+        </div>
+      </div>
+
+      <div class="input-box">
+        <label id="email" for="email">E-mail:</label>
+        <input type="email" id="email" formControlName="email" />
+      </div>
+    </div>
+
+    <div class="endereco-box">
+      <hr>
+      <div class="identificador">Endereço</div>
+      <div class="linha">
+        <div class="input-box">
+          <label for="endRua">Rua:</label>
+          <input type="text" id="endRua" formControlName="endRua" />
+        </div>
+        <div class="input-box">
+          <label for="endNumero">Número:</label>
+          <input type="text" id="endNumero" formControlName="endNumero" />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="endBairro">Bairro:</label>
+          <input type="text" id="endBairro" formControlName="endBairro" />
+        </div>
+        <div class="input-box">
+          <label for="endCidade">Cidade:</label>
+          <input type="text" id="endCidade" formControlName="endCidade" />
+        </div>
+
+      </div>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="endCep">CEP:</label>
+          <input type="text" id="endCep" formControlName="endCep" />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="endTipoResidencia">Tipo de Residência:</label>
+          <select id="endTipoResidencia" formControlName="endTipoResidencia">
+            <option selected>-Selecione-</option>
+            <option value="CASA">Casa</option>
+            <option value="APARTAMENTO">Apartamento</option>
+            <option value="OUTRO">Outro</option>
+          </select>
+        </div>
+        <div class="input-box">
+          <label for="endObservacao">Observação:</label>
+          <input type="text" id="endObservacao" formControlName="endObservacao" />
+        </div>
+      </div>
+    </div>
+
+    <div class="saude-box">
+      <hr>
+      <div class="identificador">Saúde</div>
+      <div class="linha">
+        <div class="input-box">
+          <label for="deficiente">Deficiente:</label>
+          <input type="checkbox" id="deficiente" formControlName="deficiente" />
+        </div>
+        <div class="input-box">
+          <label for="deficiencia">Deficiência:</label>
+          <input type="text" id="deficiencia" formControlName="deficiencia" />
+        </div>
+        <div class="input-box">
+          <label for="deficienciaFamilia">Deficiência na Família:</label>
+          <input
+            type="text"
+            id="deficienciaFamilia"
+            formControlName="deficienciaFamilia"
+          />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="input-box" >
+          <label id="observacaosobreopaciente"  for="observaçãoPaciente">observação Sobre o Paciente:</label>
+          <input
+            type="text"
+            id="observaçãoPaciente"
+            formControlName="observacaoPaciente"
+          />
+        </div>
+        <div class="input-box">
+          <label for="convenio">Possui Convênio:</label>
+          <input type="checkbox" id="convenio" formControlName="convenio" />
+        </div>
+      </div>
+      <hr>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="exame">Exame:</label>
+          <input type="text" id="exame" formControlName="exame" />
+        </div>
+        <div class="input-box">
+          <label for="valorExame">Valor do Exame:</label>
+          <input type="text" id="valorExame" formControlName="valorExame" />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="local">Local:</label>
+          <input type="text" id="local" formControlName="local" />
+        </div>
+        <div class="input-box">
+          <label for="indicacao">Indicação:</label>
+          <input type="text" id="indicacao" formControlName="indicacao" />
+        </div>
+      </div>
+
+    </div>
+    <div class="input-box">
+      <label for="atendente">Atendente:</label>
+      <input type="text" id="atendente" formControlName="atendente" />
+    </div>
+
+    <div class="input-box">
+      <label for="medicoAtendente">Médico Atendente:</label>
+      <input
+        type="text"
+        id="medicoAtendente"
+        formControlName="medicoAtendente"
+      />
+    </div>
+    <div class="input-box">
+      <label for="observacaoExame">Observação:</label>
+      <input
+        type="text"
+        id="observacaoExame"
+        formControlName="observacaoExame"
+      />
+    </div>
+
+    <hr>
+    <div class="input-box">
+      <label for="aceite">Termo de Aceite:</label>
+      <input type="checkbox" id="aceite" formControlName="aceite" />
+    </div>
+
+    <div class="cadastrar-box">
+      <button
+        type="submit"
+        [disabled]="!desabilitarValidacoes && formularioDeUsuario.invalid"
+      >
+        Cadastrar
+      </button>
+    </div>
+
+    <div>{{ formularioDeUsuario.value | json }}</div>
+    <div>{{ formularioDeUsuario.valid | json }}</div>
+  </form>
+</div>
