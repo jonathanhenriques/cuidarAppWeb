@@ -6,13 +6,15 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CadastrarPacienteComponent } from './cadastrar-paciente/cadastrar-paciente.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DetailsPacienteComponent } from './details-paciente/details-paciente.component';
 
 
 
 @NgModule({
   declarations: [
     ListarPacientesComponent,
-    CadastrarPacienteComponent
+    CadastrarPacienteComponent,
+    DetailsPacienteComponent
   ],
   imports: [
     CommonModule,

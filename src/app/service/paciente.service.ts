@@ -12,7 +12,7 @@ import { PacienteFiltro } from '../models/filtros/PacienteFiltro';
 })
 export class PacientesService {
 
-  pacientesUrl: string
+  private pacientesUrl: string
 
   constructor(private http: HttpClient) {
     this.pacientesUrl = `${environment.urlTeste}/pacientes`
@@ -38,10 +38,10 @@ export class PacientesService {
   }
 
 
-  obterTodosPacientes(): Promise<any[]> {
-    return firstValueFrom(this.http.get<any[]>(`${this.pacientesUrl}`/*, this.token*/))
-    .then((response: any) => response['content']);
-  }
+  // obterTodosPacientes(): Promise<any[]> {
+  //   return firstValueFrom(this.http.get<any[]>(`${this.pacientesUrl}`/*, this.token*/))
+  //   .then((response: any) => response['content']);
+  // }
 
 
 

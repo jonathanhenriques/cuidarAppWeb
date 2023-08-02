@@ -6,17 +6,26 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './componentes/sidebar/sidebar.component';
 import { PacienteModule } from './paciente/paciente.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MensagemComponent } from './shared/mensagem/mensagem.component';
+import { ListarExamesComponent } from './exame/listar-exames/listar-exames.component';
+import { ExameModule } from './exame/exame.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
+    SidebarComponent,
+    MensagemComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PacienteModule,
     HttpClientModule,
+
+
+
+
+    PacienteModule,
+    ExameModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

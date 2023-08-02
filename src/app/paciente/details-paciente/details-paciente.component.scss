@@ -1,11 +1,37 @@
 
 
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+/* Selects the table element and sets its border to collapse into a single border and its width to 100% of its parent element */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 30px;
+}
+
+/* Selects the th and td elements and sets their border to 1px solid #ddd and their padding to 8px */
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+/* Selects even table rows and sets their background color to a light gray color */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Selects the th element and sets its background color to green and its text color to white */
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
 
 body {
   display: flex;
@@ -27,7 +53,7 @@ body {
 }
 
 .identificador {
-  display: none;
+
   font-style: oblique;
   font-size: small;
 }
@@ -48,7 +74,6 @@ hr {
   margin-right: 10px;
   padding: 5px;
   align-items: center;
-
 }
 
 /* Define o estilo para os elementos label dentro da classe input-box */
@@ -70,53 +95,10 @@ hr {
   white-space: nowrap;
 }
 
+
 #observacaosobreopaciente {
   word-wrap: break-word;
    width: 100px;
+
 }
-
-// .titulo {
-//   padding: 3rem;
-//   font-size: 2rem;
-// }
-
-
-/* Para dispositivos móveis */
-@media (max-width: 767px) {
-  /* Ajuste o tamanho dos campos de entrada */
-  .linha {
-    flex-direction: column;
-  }
-  .input-box {
-    width: 60%;
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-}
-
-
-/* Para tablets */
-@media (min-width: 768px) and (max-width: 991px) {
-  /* Ajuste a largura das colunas */
-  .form-col {
-    width: 50%;
-    margin-right: 2%;
-  }
-  .form-col:last-child {
-    margin-right: 0;
-  }
-}
-
-/* Para computadores */
-@media (min-width: 992px) {
-  /* Ajuste a largura das colunas */
-  .form-col {
-    width: 32%;
-    margin-right: 2%;
-  }
-  .form-col:last-child {
-    margin-right: 0;
-  }
-}
-
 

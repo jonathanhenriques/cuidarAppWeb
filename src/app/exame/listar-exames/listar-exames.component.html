@@ -1,0 +1,37 @@
+
+<div class="container">
+
+  <h1 class="titulo">Todos os Exames</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">data Exame</th>
+        <th scope="col">Adicionar</th>
+        <th scope="col">Apagar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exame of exames">
+        <th scope="row">{{ exame.id }}</th>
+        <td>{{ exame.nomeExame }}</td>
+        <td>{{ exame.paciente?.nome }}</td>
+        <td>{{ exame.dataExame | date: 'dd/MM/yyyy' }}</td>
+        <!-- <td><button (click)="adicionarPaciente(paciente)">Adicionar</button></td> -->
+        <!-- <td><button (click)="apagarPaciente(paciente)">Apagar</button></td> -->
+      </tr>
+    </tbody>
+  </table>
+
+<div>
+  <ngb-pagination
+  [collectionSize]="totalItems"
+  [(page)]="currentPage"
+  [pageSize]="itemsPerPage"
+  (pageChange)="pageChanged($event)">
+</ngb-pagination>
+
+
+</div>
