@@ -1,5 +1,52 @@
-
 <div class="container">
+
+  <!-- <div class="parametros-selecao">
+
+    <div class="parametros-selecao-caixa">
+      <label for="medicos">Selecione um ou mais médicos:</label>
+      <select name="medicos" id="medicos" multiple>
+        <option value="">Todos</option>
+        <option value="1">Dr.Ricardo Yoshio</option>
+        <option value="2">Dr.Drauzio Varela</option>
+        <option value="3">Dr.Veterinária</option>
+        <option value="4">Dr.Saulo</option>
+        <option value="5">Dr.Dorivaldo</option>
+        <option value="6">Dra.Ana</option>
+      </select>
+    </div>
+
+    <div class="parametros-selecao-caixa">
+      <label for="situacao">Selecione a situação:</label>
+      <select name="situacao" id="situacao">
+        <option value="true">Ativo</option>
+        <option value="false">Inativo</option>
+      </select>
+    </div>
+
+  </div> -->
+
+  <div class="parametros-selecao">
+    <div class="parametros-selecao-caixa">
+      <div class="parametros-selecao-caixa">
+        <label for="medicos">Selecione um médico:</label>
+        <select name="medicos[]" id="medicos"  [(ngModel)]="medicoSelecionado">
+          <option *ngFor="let medico of listaMedicos" [value]="medico.id">{{ medico.nome }}</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="parametros-selecao-caixa">
+      <label for="situacao">Selecione a situação:</label>
+      <select name="situacao" id="situacao" [(ngModel)]="situacaoExameSelecionado">
+        <option value="true">Ativo</option>
+        <option value="false">Inativo</option>
+      </select>
+    </div>
+  </div>
+
+  <button (click)="listarExames(0)">Pesquisar</button>
+
 
   <h1 class="titulo">Todos os Exames</h1>
 
@@ -18,20 +65,20 @@
         <th scope="row">{{ exame.id }}</th>
         <td>{{ exame.nomeExame }}</td>
         <td>{{ exame.paciente?.nome }}</td>
-        <td>{{ exame.dataExame | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ exame.dataExame | date : "dd/MM/yyyy" }}</td>
         <!-- <td><button (click)="adicionarPaciente(paciente)">Adicionar</button></td> -->
         <!-- <td><button (click)="apagarPaciente(paciente)">Apagar</button></td> -->
       </tr>
     </tbody>
   </table>
 
-<div>
-  <ngb-pagination
-  [collectionSize]="totalItems"
-  [(page)]="currentPage"
-  [pageSize]="itemsPerPage"
-  (pageChange)="pageChanged($event)">
-</ngb-pagination>
-
-
+  <div>
+    <ngb-pagination
+      [collectionSize]="totalItems"
+      [(page)]="currentPage"
+      [pageSize]="itemsPerPage"
+      (pageChange)="pageChanged($event)"
+    >
+    </ngb-pagination>
+  </div>
 </div>
