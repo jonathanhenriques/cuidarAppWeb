@@ -72,7 +72,7 @@ export class ListarExamesComponent implements OnInit {
       medicoId: this.medicoSelecionado[0],
       localId: this.localSelecionado,
       pacienteId: this.pacienteId,
-      // pacienteRG: this.pacienteRG,
+      pacienteRG: this.pacienteRG,
       atendenteId: this.atendenteSelecionado,
       dataExame: this.dataExameSelecionado,
       nomeExame: this.nomeExameSelecionado,

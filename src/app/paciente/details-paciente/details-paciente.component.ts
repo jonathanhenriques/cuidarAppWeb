@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EnderecoED } from 'src/app/models/EnderecoED';
-import { ExameED, criaExameComPaciente } from 'src/app/models/ExameED';
+import { ExameED } from 'src/app/models/ExameED';
 import { PacienteED } from 'src/app/models/PacienteED';
 import { PacienteService } from 'src/app/service/paciente.service';
 import { Validacoes } from 'src/app/utils/validacoes';
@@ -37,7 +37,7 @@ export class DetailsPacienteComponent {
     endCep: '',
     endObservacao: ''
   };
-  contatoPassado = new ContatoED();
+  contatoPassado: ContatoED;
   examePassado: ExameED | undefined;
   recebePaciente: PacienteED | undefined;
 
@@ -48,7 +48,7 @@ export class DetailsPacienteComponent {
 
 
   constructor(
-    private pacientesService: PacienteService,
+    private pacienteService: PacienteService,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
   ) {
@@ -69,7 +69,7 @@ export class DetailsPacienteComponent {
 
 
   buscarPacienteById(idPaciente: number) {
-    this.pacientesService.getPacienteById(this.idPaciente).subscribe((dataPaciente: PacienteED) => {
+    this.pacienteService.getPacienteById(this.idPaciente).subscribe((dataPaciente: PacienteED) => {
       this.pacientePassado = dataPaciente;
       console.log('obj paciente buscado')
       console.log(JSON.stringify(this.pacientePassado,null,2))
@@ -107,7 +107,7 @@ export class DetailsPacienteComponent {
     this.pacientePassado.profissao = this.formularioDeUsuarioAtualizar.value.profissao;
 
 
-    this.pacientePassado.contato = new ContatoED();
+    // this.pacientePassado.contato = new ContatoED();
     this.pacientePassado.contato.celular = this.formularioDeUsuarioAtualizar.value.celular;
     this.pacientePassado.contato.telefone = this.formularioDeUsuarioAtualizar.value.telefone;
     this.pacientePassado.contato.contFacebook = this.formularioDeUsuarioAtualizar.value.contFacebook;
@@ -190,7 +190,7 @@ export class DetailsPacienteComponent {
     // console.log(JSON.stringify(this.enderecoPassado,null,2))
 
 
-    this.pacientesService.putPaciente(this.pacientePassado).subscribe((dados: any) => {
+    this.pacienteService.putPaciente(this.pacientePassado).subscribe((dados: any) => {
       console.log('obj paciente atualizado')
       console.log(JSON.stringify(dados,null,2));
     })

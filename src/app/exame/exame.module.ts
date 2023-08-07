@@ -6,11 +6,12 @@ import { ListarExamesComponent } from './listar-exames/listar-exames.component';
 import { PacienteRoutingModule } from '../paciente/paciente-routing.module';
 import { ExameRoutingModule } from './exame-routing.module';
 import { NgxMaskModule } from 'ngx-mask';
+import { DetailsExameComponent } from './details-exame/details-exame.component';
 
 
 
 @NgModule({
-  declarations: [ListarExamesComponent],
+  declarations: [ListarExamesComponent, DetailsExameComponent],
   imports: [
     CommonModule,
     NgbModule,

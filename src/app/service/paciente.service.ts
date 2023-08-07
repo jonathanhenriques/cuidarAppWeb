@@ -51,6 +51,10 @@ export class PacienteService {
 
 
   cadastrarPaciente(paciente: any): Observable<any> {
+    console.log("================================")
+    console.log("corpo da req: ")
+    console.log(JSON.stringify(paciente, null, 2))
+    console.log("================================")
     return this.http.post<any>(`${this.pacientesUrl}`, paciente /*,this.token*/).pipe(
       tap(response => console.log('respo : '+response)));
   }

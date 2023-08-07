@@ -47,7 +47,6 @@
         name="RGPaciente"
         mask="000.000.000-00"
         [(ngModel)]="pacienteRG"
-        (blur)="buscaPacientePorRG()"
         placeholder="Rg..."
         >
       </div>
@@ -85,7 +84,7 @@
     <tbody>
       <tr *ngFor="let exame of exames">
         <th scope="row">{{ exame.id }}</th>
-        <td>{{ exame.nomeExame }}</td>
+        <td><a [routerLink]="['/detalhes', exame.id]">{{ exame.nomeExame }}</a></td>
         <td>{{ exame.paciente?.nome }}</td>
         <td>{{ exame.dataExame | date : "dd/MM/yyyy" }}</td>
         <!-- <td><button (click)="adicionarPaciente(paciente)">Adicionar</button></td> -->

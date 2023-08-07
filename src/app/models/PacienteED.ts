@@ -6,7 +6,7 @@ export class PacienteED {
   public id: number;
   public codigo: string
   public nome: string;
-  public dataNasc: Date;
+  public dataNasc: string;
   public idade: number;
   public rg: string;
   public estadoCivil: string;
@@ -23,22 +23,28 @@ export class PacienteED {
   public aceite: boolean; //substitui assinatura
   // public atendente: string[];
   // public medicoAtendente: string[];
-  public exames: ExameED[] | null;
+  public exames?: ExameED[] | null;
   // public local: string[];
   public indicacao: string;
   public isAtivo: 1;
-  public dataCadastro: Date;
+  public dataCadastro?: Date;
 
   constructor() {
     this.id =  0;
     this.nome = '';
-    this.dataNasc = new Date();
+    this.dataNasc = '';
     this.idade = 0;
     this.rg = '';
     this.estadoCivil = '';
     this.filhos = 0;
     this.nomeResponsavelPaciente = '';
-    this.contato = new ContatoED();
+    this.contato =  {
+      celular: '',
+      telefone: '',
+      contFacebook: '',
+      contInstagram: '',
+      email: '',
+    }
     this.profissao = '';
     this.endereco;
     this.deficiente = 0;
@@ -49,10 +55,8 @@ export class PacienteED {
     this.aceite = true; //substitui assinatura
     // this.atendente = [];
     // this.medicoAtendente = [];
-    this.exames = [];
     // this.local = [];
     this.indicacao = '';
     this.isAtivo = 1;
-    this.dataCadastro = new Date();
   }
 }
