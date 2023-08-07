@@ -11,7 +11,7 @@ import {
 import { EnderecoED } from 'src/app/models/EnderecoED';
 import { ExameED, criaExameComPaciente } from 'src/app/models/ExameED';
 import { PacienteED } from 'src/app/models/PacienteED';
-import { PacientesService } from 'src/app/service/paciente.service';
+import { PacienteService } from 'src/app/service/paciente.service';
 import { Validacoes } from 'src/app/utils/validacoes';
 
 @Component({
@@ -27,12 +27,20 @@ export class CadastrarPacienteComponent implements OnInit {
   desabilitarValidacoes: boolean = false;
 
   pacientePassado = new PacienteED();
-  enderecoPassado = new EnderecoED();
+  enderecoPassado: EnderecoED = {
+    endRua: '',
+    endNumero: '',
+    endBairro: '',
+    endCidade: '',
+    endTipoResidencia: '',
+    endCep: '',
+    endObservacao: ''
+  };;
   contatoPassado = new ContatoED();
   examePassado = new ExameED();
 
   constructor(
-    private pacientesService: PacientesService,
+    private pacientesService: PacienteService,
     private fb: FormBuilder,
   ) {
 
@@ -159,7 +167,16 @@ export class CadastrarPacienteComponent implements OnInit {
     this.pacientePassado.contato.contInstagram = this.formularioDeUsuario.value.contInstagram;
     this.pacientePassado.contato.email = this.formularioDeUsuario.value.email;
 
-    this.pacientePassado.endereco = new EnderecoED();
+    this.pacientePassado.endereco = this.enderecoPassado;
+    //  {
+    //   endRua: '',
+    //   endNumero: '',
+    //   endBairro: '',
+    //   endCidade: '',
+    //   endTipoResidencia: '',
+    //   endCep: '',
+    //   endObservacao: ''
+    // };
     this.pacientePassado.endereco.endRua = this.formularioDeUsuario.value.endRua;
     this.pacientePassado.endereco.endNumero = this.formularioDeUsuario.value.endNumero;
     this.pacientePassado.endereco.endBairro = this.formularioDeUsuario.value.endBairro;

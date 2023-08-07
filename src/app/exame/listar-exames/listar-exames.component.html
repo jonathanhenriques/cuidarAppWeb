@@ -1,52 +1,74 @@
 <div class="container">
 
-  <!-- <div class="parametros-selecao">
-
-    <div class="parametros-selecao-caixa">
-      <label for="medicos">Selecione um ou mais médicos:</label>
-      <select name="medicos" id="medicos" multiple>
-        <option value="">Todos</option>
-        <option value="1">Dr.Ricardo Yoshio</option>
-        <option value="2">Dr.Drauzio Varela</option>
-        <option value="3">Dr.Veterinária</option>
-        <option value="4">Dr.Saulo</option>
-        <option value="5">Dr.Dorivaldo</option>
-        <option value="6">Dra.Ana</option>
-      </select>
-    </div>
-
-    <div class="parametros-selecao-caixa">
-      <label for="situacao">Selecione a situação:</label>
-      <select name="situacao" id="situacao">
-        <option value="true">Ativo</option>
-        <option value="false">Inativo</option>
-      </select>
-    </div>
-
-  </div> -->
 
   <div class="parametros-selecao">
+    <h6 class="titulo">Para filtrar informe:</h6>
     <div class="parametros-selecao-caixa">
+      <label for="codigoExame">Código do Exame:</label>
+      <input name="codigoExame" type="text" [(ngModel)]="codigoExame" placeholder="Código...">
+
+    </div>
+
       <div class="parametros-selecao-caixa">
-        <label for="medicos">Selecione um médico:</label>
-        <select name="medicos[]" id="medicos"  [(ngModel)]="medicoSelecionado">
-          <option *ngFor="let medico of listaMedicos" [value]="medico.id">{{ medico.nome }}</option>
+        <label for="medicos">Médico:</label>
+        <select name="medicos[]" id="medicos" [(ngModel)]="medicoSelecionado">
+          <option selected value="">Todos</option>
+          <option *ngFor="let medico of listaMedicos" [value]="medico.id">
+            {{ medico.nome }}
+          </option>
         </select>
       </div>
 
-    </div>
+      <div class="parametros-selecao-caixa">
+        <label for="local">Local:</label>
+        <select name="locais[]" id="locais" [(ngModel)]="localSelecionado">
+          <option value="">Selecionar</option> <!-- Opção padrão -->
+          <option *ngFor="let local of listaLocais" [value]="local.id">
+            {{ local.nomeLocal }}
+          </option>
+        </select>
+      </div>
 
-    <div class="parametros-selecao-caixa">
-      <label for="situacao">Selecione a situação:</label>
-      <select name="situacao" id="situacao" [(ngModel)]="situacaoExameSelecionado">
-        <option value="true">Ativo</option>
-        <option value="false">Inativo</option>
-      </select>
-    </div>
+
+      <div class="parametros-selecao-caixa">
+        <label for="medicos">Atendente:</label>
+        <select name="atendentes[]" id="atendentes" [(ngModel)]="atendenteSelecionado">
+          <option selected value="-1">Todos</option>
+          <option *ngFor="let atendente of listaAtendentes" [value]="atendente.id">
+            {{ atendente.nome }}
+          </option>
+        </select>
+      </div>
+
+      <div class="parametros-selecao-caixa">
+        <label for="medicos">RG do paciente:</label>
+        <input
+        type="text"
+        name="RGPaciente"
+        mask="000.000.000-00"
+        [(ngModel)]="pacienteRG"
+        (blur)="buscaPacientePorRG()"
+        placeholder="Rg..."
+        >
+      </div>
+
+
+
+      <div class="parametros-selecao-caixa">
+        <label for="isAtivo">Situação:</label>
+        <select
+          name="isAtivo"
+          id="isAtivo"
+          [(ngModel)]="situacaoExameSelecionado"
+        >
+          <option selected value="">Todos</option>
+          <option value="true">Ativo</option>
+          <option value="false">Inativo</option>
+        </select>
+      </div>
   </div>
 
-  <button (click)="listarExames(0)">Pesquisar</button>
-
+  <button class="botao-pesquisar" (click)="listarExames(0)">Pesquisar</button>
 
   <h1 class="titulo">Todos os Exames</h1>
 
@@ -74,11 +96,10 @@
 
   <div>
     <ngb-pagination
-      [collectionSize]="totalItems"
-      [(page)]="currentPage"
-      [pageSize]="itemsPerPage"
-      (pageChange)="pageChanged($event)"
-    >
-    </ngb-pagination>
+  [collectionSize]="totalItems"
+  [(page)]="currentPage"
+  [pageSize]="itemsPerPage"
+  (pageChange)="pageChanged($event)">
+</ngb-pagination>
   </div>
 </div>

@@ -3,8 +3,9 @@ table {
 }
 
 .titulo {
-  padding-top: 3rem;
+  padding-top: 1rem;
   padding-bottom: 1rem;
+  margin: 2rem;
   font-size: large;
 }
 
@@ -14,23 +15,40 @@ table {
 
 
 .parametros-selecao {
+  display: flex; /* Torna os elementos filhos em linha */
+  justify-content: left;
+  align-items: center; /* Alinha os elementos verticalmente ao centro */
   padding-top: 3rem;
-  display: flex;
-  justify-content: center;
+  margin: 1rem;
+  border: 1px solid #e0e0e0; /* Adicionar contorno com 2px de largura e cor preta */
+  border-radius: 10px; /* Isso adiciona cantos arredondados */
+  padding: 10px; /* Espaçamento interno */
 }
 
 .parametros-selecao-caixa {
   display: flex;
   flex-direction: column;
   margin-right: 10px;
-  padding: 5px;
   align-items: center;
 
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 10px; /* Isso adiciona cantos arredondados */
-  margin-bottom: 10px;
 }
+
+.botao-pesquisar {
+  display:block;
+  margin: 2rem;
+}
+
+.minha-div {
+
+  width: 300px; /* Largura da div */
+  height: 200px; /* Altura da div */
+
+  padding: 10px; /* Espaçamento interno */
+}
+
 
 .parametros-selecao-caixa select {
   width: 100%;
@@ -38,6 +56,8 @@ table {
 
 .container {
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 a {

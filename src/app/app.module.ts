@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MensagemComponent } from './shared/mensagem/mensagem.component';
 import { ListarExamesComponent } from './exame/listar-exames/listar-exames.component';
 import { ExameModule } from './exame/exame.module';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ExameModule } from './exame/exame.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxMaskModule.forRoot(),
 
 
 

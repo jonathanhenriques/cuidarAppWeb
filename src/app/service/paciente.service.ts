@@ -10,7 +10,7 @@ import { PacienteFiltro } from '../models/filtros/PacienteFiltro';
 @Injectable({
   providedIn: 'root',
 })
-export class PacientesService {
+export class PacienteService {
 
   private pacientesUrl: string
 
@@ -29,7 +29,12 @@ export class PacientesService {
 
   obterPacientePorId(id: number): Observable<PacienteED> {
     const url = `${this.pacientesUrl}/${id}`;
-    return this.http.get<PacienteED>(this.pacientesUrl);
+    return this.http.get<PacienteED>(url);
+  }
+
+  getByRG(RG: string): Observable<PacienteED> {
+    const url = `${this.pacientesUrl}/RG/${RG}`;
+    return this.http.get<PacienteED>(url).pipe(tap((data:PacienteED) => console.log('pacienteRG: ' + data)));
   }
 
   getAll(): Observable<any[]> {

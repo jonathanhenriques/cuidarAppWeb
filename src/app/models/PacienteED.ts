@@ -4,6 +4,7 @@ import { ExameED } from "./ExameED";
 
 export class PacienteED {
   public id: number;
+  public codigo: string
   public nome: string;
   public dataNasc: Date;
   public idade: number;
@@ -39,7 +40,7 @@ export class PacienteED {
     this.nomeResponsavelPaciente = '';
     this.contato = new ContatoED();
     this.profissao = '';
-    this.endereco = new EnderecoED();
+    this.endereco;
     this.deficiente = 0;
     this.deficiencia = '';
     this.deficienciaFamilia = '';

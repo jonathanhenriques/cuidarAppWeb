@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, firstValueFrom, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ParametroExameRequest } from '../models/filtros/ParametroExameRequest';
+import { ExameFiltro } from '../models/filtros/ExameFiltro';
 
 
 
@@ -23,42 +24,68 @@ export class ExameService {
   }
 
 
-  getAllWithParameters(listaParametros: ParametroExameRequest): Observable<any> {
-    let params = new HttpParams();
+  getAllWithParameters(listaParametros: ParametroExameRequest, filtro: ExameFiltro): Promise<any> {
+    let params = new HttpParams() //os parametros precisam estar como strings
+    .set('page', filtro.pagina.toString())
+    .set('size', filtro.itensPorPagina.toString());
+
+
+    if (listaParametros.codigo) {
+      params = params.set('codigo', listaParametros.codigo?.toString());
+    }
+
+    if (listaParametros.pacienteId) {
+      params = params.set('pacienteId', listaParametros.pacienteId.toString());
+    }
+
+    if (listaParametros.pacienteCodigo) {
+      params = params.set('pacienteCodigo', listaParametros.pacienteCodigo.toString());
+    }
+
+    if (listaParametros.pacienteRG) {
+      params = params.set('pacienteRG', listaParametros.pacienteRG.toString());
+    }
 
     if (listaParametros.medicoId) {
       params = params.set('medicoId', listaParametros.medicoId.toString());
     }
 
-    if (listaParametros.situacao) {
-      params = params.set('situacao', listaParametros.situacao.toString());
+    if (listaParametros.localId) {
+      params = params.set('localId', listaParametros.localId.toString());
     }
 
+    if (listaParametros.atendenteId) {
+      params = params.set('atendenteId', listaParametros.atendenteId.toString());
+    }
 
-    // if (listaParametros.medicoId != 0)
-      // params = params.set('medicoId', listaParametros.medicoId);
+    if (listaParametros.nomeExame) {
+      params = params.set('nomeExame', listaParametros.nomeExame.toString());
+    }
 
-    // if(listaParametros.isAtivo !== true)
-    //   params = params.set('isAtivo', 'false')
+    if (listaParametros.dataExame) {
+      params = params.set('dataExame', listaParametros.dataExame.toString());
+    }
 
+    if (listaParametros.valor) {
+      params = params.set('valor', listaParametros.valor.toString());
+    }
 
-    // if (nomeExame) {
-    //   params = params.set('nomeExame', nomeExame);
-    // }
+    if (listaParametros.isAtivo) {
+      params = params.set('isAtivo', listaParametros.isAtivo.toString());
+    }
 
-    // if (localId) {
-    //   params = params.set('localId', localId.toString());
-    // }
+    return firstValueFrom(this.http.get<any>(`${this.examesUrl}`, { params: params }))
+    .then(
+      (response: any) => {
+        const exames = response['content'];
 
-    // if (dataExame) {
-    //   params = params.set('dataExame', dataExame);
-    // }
+        const resultado = {
+          exames,
+          total: response['totalElements']
+        }
+        return resultado;
+      });
 
-    return this.http.get<any>(`${this.examesUrl}`, { params: params }).pipe(
-      tap(response => {
-        console.log('Resposta da requisição:', response);
-      }));
   }
-
 
 }

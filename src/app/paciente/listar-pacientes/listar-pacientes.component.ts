@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PacienteED } from 'src/app/models/PacienteED';
 import { PacienteFiltro } from 'src/app/models/filtros/PacienteFiltro';
 // import { MatDialog } from '@angular/material/dialog';
-import { PacientesService } from 'src/app/service/paciente.service';
+import { PacienteService } from 'src/app/service/paciente.service';
 
 
 
@@ -24,7 +24,7 @@ export class ListarPacientesComponent implements OnInit {
   itemsPerPage = 5;
 
   constructor(
-    private pacienteService: PacientesService,
+    private pacienteService: PacienteService,
     ){}
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class ListarPacientesComponent implements OnInit {
     this.listarPacientes(this.currentPage);
   }
 
-  
+
 
   listarPacientes(pagina: number): void {
     this.filtro.pagina = pagina;

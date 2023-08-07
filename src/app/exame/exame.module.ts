@@ -5,6 +5,7 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListarExamesComponent } from './listar-exames/listar-exames.component';
 import { PacienteRoutingModule } from '../paciente/paciente-routing.module';
 import { ExameRoutingModule } from './exame-routing.module';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 
@@ -17,6 +18,7 @@ import { ExameRoutingModule } from './exame-routing.module';
     // NgxPaginationModule,
     ReactiveFormsModule,
     FormsModule,
+    // NgxMaskModule,
 
 
 
