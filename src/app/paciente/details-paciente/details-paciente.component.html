@@ -1,6 +1,6 @@
 
 <div class="container">
-    <form class="formulario" [formGroup]="formularioDeUsuarioAtualizar" *ngIf="formularioDeUsuarioAtualizar"(ngSubmit)="enviarDados()">
+    <form class="formulario">
       <div class="paciente-box">
         <div class="identificador">Informações Pessoais</div>
         <div class="linha">
@@ -140,11 +140,11 @@
         <div class="linha">
           <div class="input-box">
             <label for="deficiente">Deficiente:</label>
-            <input (blur)="verificaDeficiente()" type="checkbox" id="deficiente" formControlName="deficiente" />
+            <!-- <input (blur)="verificaDeficiente()" type="checkbox" id="deficiente" formControlName="deficiente" /> -->
           </div>
           <div class="input-box">
             <label for="deficiencia">Deficiência:</label>
-            <input type="text" id="deficiencia" formControlName="deficiencia" [disabled]="!verificaDeficiente()" />
+            <input type="text" id="deficiencia" formControlName="deficiencia"  />
           </div>
           <div class="input-box">
             <label for="deficienciaFamilia">Deficiência na Família:</label>
@@ -185,17 +185,17 @@
               <th>Valor</th>
               <th>Observação</th>
             </tr>
-            <ng-container *ngIf="examePassado">
-              <tr *ngFor="let exame of [examePassado]">
-                <td>{{ exame.id }}</td>
-                <td>{{ exame.nomeExame }}</td>
-                <td>{{ exame.medico }}</td>
-                <td>{{ exame.local }}</td>
-                <td>{{ exame.valor | currency : "BRL" }}</td>
-                <td>{{ exame.observacao }}</td>
-                <td><button type="button" (click)="1">Editar</button></td>
+            <!-- <ng-container *ngIf="examePassado"> -->
+              <tr *ngFor="let exame of examePassado">
+                <td>{{ exame?.id }}</td>
+                <td>{{ exame?.nomeExame }}</td>
+                <td>{{ exame?.medico }}</td>
+                <td>{{ exame?.local }}</td>
+                <td>{{ exame?.valor | currency : "BRL" }}</td>
+                <td>{{ exame?.observacao }}</td>
+                <td><button type="button" >Editar</button></td>
               </tr>
-            </ng-container>
+            <!-- </ng-container> -->
           </table>
         </div>
 
@@ -245,13 +245,12 @@
       <div class="cadastrar-box">
         <button
           type="submit"
-          [disabled]="!desabilitarValidacoes && formularioDeUsuarioAtualizar.invalid"
+
         >
           Cadastrar
         </button>
       </div>
 
-      <div>{{ formularioDeUsuarioAtualizar.value | json }}</div>
-      <div>{{ formularioDeUsuarioAtualizar.valid | json }}</div>
+
     </form>
   </div>

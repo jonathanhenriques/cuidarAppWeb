@@ -22,14 +22,27 @@ import { Validacoes } from 'src/app/utils/validacoes';
 })
 export class DetailsPacienteComponent {
 
-  formularioDeUsuarioAtualizar: FormGroup;
+  formularioDeUsuario: FormGroup;
 
   flagIdade: boolean = false;
   desabilitarValidacoes: boolean = false;
 
-  pacientePassado = new PacienteED();
-  enderecoPassado: EnderecoED = {
-    endRua: '',
+  pacientePassado: PacienteED;
+  enderecoPassado: EnderecoED;
+  contatoPassado: ContatoED;
+
+  examePassado: ExameED[] = [];
+
+  constructor(
+    private pacienteService: PacienteService,
+    private fb: FormBuilder,
+  ) {}
+
+  ngOnInit(): void {
+
+
+    this.enderecoPassado = {
+      endRua: '',
     endNumero: '',
     endBairro: '',
     endCidade: '',
@@ -37,84 +50,124 @@ export class DetailsPacienteComponent {
     endCep: '',
     endObservacao: ''
   };
-  contatoPassado: ContatoED;
-  examePassado: ExameED | undefined;
-  recebePaciente: PacienteED | undefined;
 
-  dataFormatadaExibicao: any
-  idPaciente: number
+    this.contatoPassado = {
+      celular: '',
+      telefone: '',
+      contFacebook: '',
+      contInstagram: '',
+      email: ''
+    };
 
-  atributosExame: string[]
+    this.pacientePassado = {
+      nome: '',
+      dataNasc: '',
+      idade: 1,
+      rg: '',
+      estadoCivil: '',
+      filhos: 0,
+      nomeResponsavelPaciente: '',
+      contato: this.contatoPassado,
+      profissao: '',
+      endereco: this.enderecoPassado,
+      deficiente: false,
+      deficiencia: '',
+      deficienciaFamilia: '',
+      convenio: false,
+      observacao: '',
+      aceite: false, //substitui assinatura
+      indicacao: '',
+      isAtivo: true,
+    }
 
 
-  constructor(
-    private pacienteService: PacienteService,
-    private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute,
-  ) {
-
-  }
-
-  ngOnInit(): void {
-
-    this.idPaciente = this.activatedRoute.snapshot.params['id'];
-    this.buscarPacienteById(this.idPaciente)
+    this.configurarFormulario(this.pacientePassado, this.enderecoPassado, this.contatoPassado/*, this.examePassado8*/);
     this.desabilitarValidacoesDoFormulario();
     this.desabilitarValidacoes = true;
-
-    this.atributosExame = Object.keys(new ExameED()).map(key => key);
-    console.log(typeof this.atributosExame)
-
   }
 
 
-  buscarPacienteById(idPaciente: number) {
-    this.pacienteService.getPacienteById(this.idPaciente).subscribe((dataPaciente: PacienteED) => {
-      this.pacientePassado = dataPaciente;
-      console.log('obj paciente buscado')
-      console.log(JSON.stringify(this.pacientePassado,null,2))
-
-      this.enderecoPassado = this.pacientePassado.endereco;
-      this.contatoPassado = this.pacientePassado.contato;
-      this.examePassado = this.pacientePassado?.exames?.[0];
-
-      const dataNasc = new Date(this.pacientePassado.dataNasc);
-      const dataNascString = dataNasc?.toISOString()?.split('T')[0];
-      this.dataFormatadaExibicao = dataNascString
-
-
-      this.configurarFormulario(this.pacientePassado, this.enderecoPassado, this.contatoPassado, this.examePassado);
-
-    })
-
-  }
-
-  isDeficiente: boolean = false;
-
-  verificaDeficiente(){
-    return this.formularioDeUsuarioAtualizar.get('deficiente')?.value
-  }
 
   enviarDados() {
 
-    this.pacientePassado.nome = this.formularioDeUsuarioAtualizar.value.nome;
-    this.pacientePassado.dataNasc = this.formularioDeUsuarioAtualizar.value.dataNasc;
-    this.pacientePassado.idade = this.formularioDeUsuarioAtualizar.value.idade;
-    this.pacientePassado.rg = this.formularioDeUsuarioAtualizar.value.rg;
-    this.pacientePassado.estadoCivil = this.formularioDeUsuarioAtualizar.value.estadoCivil;
-    this.pacientePassado.filhos = this.formularioDeUsuarioAtualizar.value.filhos;
-    this.pacientePassado.nomeResponsavelPaciente = this.formularioDeUsuarioAtualizar.value.nomeResponsavelPaciente;
-    this.pacientePassado.profissao = this.formularioDeUsuarioAtualizar.value.profissao;
+    // let jso = {
+    //   "nome": "Jonathan",
+    //   "dataNasc": "1997-05-05",
+    //   "idade": "25",
+    //   "rg": "501818352",
+    //   "estadoCivil": "SOLTEIRO",
+    //   "filhos": 0,
+    //   "nomeResponsavelPaciente": "",
+    //   "profissao": "Desenvolvedor",
+    //   "contatoForm": {
+    //     "celular": "11959503571",
+    //     "telefone": "1140551452",
+    //     "contFacebook": "faceboks",
+    //     "contInstagram": "instagram",
+    //     "email": "email@email.com"
+    //   },
+    //   "enderecoForm": {
+    //     "rua": "ruas",
+    //     "numero": "1",
+    //     "bairro": "bairros",
+    //     "cidade": "Cidades",
+    //     "tipoResidencia": "Casa",
+    //     "cep": "09951490",
+    //     "endObservacao": "Obersevado"
+    //   },
+    //   "deficiente": false,
+    //   "deficiencia": "",
+    //   "deficienciaFamilia": "",
+    //   "convenio": false,
+    //   "observacao": "",
+    //   "aceite": true,
+    //   "atendente": [
+    //     "andreia"
+    //   ],
+    //   "medicoAtendente": [
+    //     "Japones"
+    //   ],
+    //   "exame": "vista",
+    //   "local": [
+    //     "Diadema"
+    //   ],
+    //   "indicacao": "",
+    //   "isAtivo": false,
+    //   "dataCadastro": "2023-04-23T18:43:29.369Z",
+    //   "exames": [{
+    //     "id": 0,
+    //     "medico": "J",
+    //     "local": "D",
+    //     "paciente": null,
+    //     "dataExame": "2023-04-23T19:16:54.830Z",
+    //     "valor": 0,
+    //     "observacao": ""
+    //   }]
+    // }
+
+
+    // this.pacientePassado.nome = this.formularioDeUsuario.value.nome;
+    this.pacientePassado.nome = 'anas'
+    // this.pacientePassado.dataNasc = this.formularioDeUsuario.value.dataNasc;
+    this.pacientePassado.dataNasc = "1990-01-01";
+    // this.pacientePassado.idade = this.formularioDeUsuario.value.idade;
+    this.pacientePassado.idade = 56
+    this.pacientePassado.rg = this.formularioDeUsuario.value.rg;
+    // this.pacientePassado.estadoCivil = this.formularioDeUsuario.value.estadoCivil;
+    this.pacientePassado.estadoCivil = 'SOLTEIRO';
+    this.pacientePassado.filhos = this.formularioDeUsuario.value.filhos;
+    this.pacientePassado.nomeResponsavelPaciente = this.formularioDeUsuario.value.nomeResponsavelPaciente;
+    this.pacientePassado.profissao = this.formularioDeUsuario.value.profissao;
 
 
     // this.pacientePassado.contato = new ContatoED();
-    this.pacientePassado.contato.celular = this.formularioDeUsuarioAtualizar.value.celular;
-    this.pacientePassado.contato.telefone = this.formularioDeUsuarioAtualizar.value.telefone;
-    this.pacientePassado.contato.contFacebook = this.formularioDeUsuarioAtualizar.value.contFacebook;
-    this.pacientePassado.contato.contInstagram = this.formularioDeUsuarioAtualizar.value.contInstagram;
-    this.pacientePassado.contato.email = this.formularioDeUsuarioAtualizar.value.email;
+    this.pacientePassado.contato.celular = this.formularioDeUsuario.value.celular;
+    this.pacientePassado.contato.telefone = this.formularioDeUsuario.value.telefone;
+    this.pacientePassado.contato.contFacebook = this.formularioDeUsuario.value.contFacebook;
+    this.pacientePassado.contato.contInstagram = this.formularioDeUsuario.value.contInstagram;
+    this.pacientePassado.contato.email = this.formularioDeUsuario.value.email;
 
-    this.pacientePassado.endereco = this.enderecoPassado
+    this.pacientePassado.endereco = this.enderecoPassado;
     //  {
     //   endRua: '',
     //   endNumero: '',
@@ -124,62 +177,41 @@ export class DetailsPacienteComponent {
     //   endCep: '',
     //   endObservacao: ''
     // };
-
-    this.pacientePassado.endereco.endRua = this.formularioDeUsuarioAtualizar.value.endRua;
-    this.pacientePassado.endereco.endNumero = this.formularioDeUsuarioAtualizar.value.endNumero;
-    this.pacientePassado.endereco.endBairro = this.formularioDeUsuarioAtualizar.value.endBairro;
-    this.pacientePassado.endereco.endCidade = this.formularioDeUsuarioAtualizar.value.endCidade;
-    this.pacientePassado.endereco.endTipoResidencia = this.formularioDeUsuarioAtualizar.value.endTipoResidencia;
-    this.pacientePassado.endereco.endCep = this.formularioDeUsuarioAtualizar.value.endCep;
-    this.pacientePassado.endereco.endObservacao = this.formularioDeUsuarioAtualizar.value.endObservacao;
+    this.pacientePassado.endereco.endRua = this.formularioDeUsuario.value.endRua;
+    this.pacientePassado.endereco.endNumero = this.formularioDeUsuario.value.endNumero;
+    this.pacientePassado.endereco.endBairro = this.formularioDeUsuario.value.endBairro;
+    this.pacientePassado.endereco.endCidade = this.formularioDeUsuario.value.endCidade;
+    this.pacientePassado.endereco.endTipoResidencia = this.formularioDeUsuario.value.endTipoResidencia;
+    this.pacientePassado.endereco.endCep = this.formularioDeUsuario.value.endCep;
+    this.pacientePassado.endereco.endObservacao = this.formularioDeUsuario.value.endObservacao;
     // this.pacientePassado.endereco = enderecoCompleto;
 
-    this.pacientePassado.deficiente = this.formularioDeUsuarioAtualizar.value.deficiente === true || this.formularioDeUsuarioAtualizar.value.deficiente === 'true' || this.formularioDeUsuarioAtualizar.value.deficiente === true ? 1 : 0;
-    this.pacientePassado.deficiencia = this.formularioDeUsuarioAtualizar.value.deficiencia;
-    this.pacientePassado.deficienciaFamilia = this.formularioDeUsuarioAtualizar.value.deficienciaFamilia;
-    this.pacientePassado.convenio = this.formularioDeUsuarioAtualizar.value.convenio === true ? 1 : 0;
-    // this.pacientePassado.atendente = []
+    // this.pacientePassado.deficiente = this.formularioDeUsuario.value.deficiente === true || this.formularioDeUsuario.value.deficiente === 'true' || this.formularioDeUsuario.value.deficiente === true ? 1 : 0;
+    this.pacientePassado.deficiente = this.formularioDeUsuario.value.deficiente;
+    this.pacientePassado.deficiencia = this.formularioDeUsuario.value.deficiencia;
+    this.pacientePassado.deficienciaFamilia = this.formularioDeUsuario.value.deficienciaFamilia;
+    // this.pacientePassado.convenio = this.formularioDeUsuario.value.convenio === true ? 1 : 0;
+    this.pacientePassado.convenio = this.formularioDeUsuario.value.convenio;
     // this.pacientePassado.atendente = [this.formularioDeUsuario.value.atendente];
 
-    let exameCompleto = new ExameED();
-    let n = +this.pacientePassado?.exames?.[0].id!
-    exameCompleto.id = n;
-    exameCompleto.paciente = new PacienteED()
-    exameCompleto.paciente.id = this.idPaciente;
-    exameCompleto.nomeExame = this.formularioDeUsuarioAtualizar.value.exame;
-    exameCompleto.medico = this.formularioDeUsuarioAtualizar.value.medicoAtendente;
-    exameCompleto.local = this.formularioDeUsuarioAtualizar.value.local;
-    exameCompleto.paciente = null;
-    exameCompleto.dataExame = new Date();
-    exameCompleto.valor = this.formularioDeUsuarioAtualizar.value.valorExame;
-    exameCompleto.atendente = this.formularioDeUsuarioAtualizar.value.atendente;
-    exameCompleto.observacao = this.formularioDeUsuarioAtualizar.value.observacaoExame;
-    this.pacientePassado.exames = [exameCompleto];
-    // this.pacientePassado.local = [this.formularioDeUsuario.value.local];
-    // this.pacientePassado.medicoAtendente = [this.formularioDeUsuario.value.medicoAtendente];
-
-
-    this.pacientePassado.observacao = this.formularioDeUsuarioAtualizar.value.observacaoExame;
-    this.pacientePassado.indicacao = this.formularioDeUsuarioAtualizar.value.indicacao;
+    this.pacientePassado.observacao = this.formularioDeUsuario.value.observacaoExame;
+    this.pacientePassado.indicacao = this.formularioDeUsuario.value.indicacao;
     // this.pacientePassado.aceite = this.formularioDeUsuario.value.aceite;
     this.pacientePassado.aceite = true
 
-    this.pacientePassado.isAtivo = 1;
-    this.pacientePassado.dataCadastro = new Date();
+    this.pacientePassado.isAtivo = true;
+    // this.pacientePassado.dataCadastro = new Date();
 
 
 
 
     // console.log(JSON.stringify(this.pacientePassado,null,2))
-
-    // console.log('obj formulario')
-    // console.log(JSON.stringify(this.formularioDeUsuario.value,null,2))
-    // console.warn('---------------------------------')
-
-    console.log('obj paciente para atalizar')
+    console.log('obj formulario')
+    console.log(JSON.stringify(this.formularioDeUsuario.value,null,2))
+    console.warn('---------------------------------')
+    console.log('obj paciente')
     console.log(JSON.stringify(this.pacientePassado,null,2))
     console.warn('---------------------------------')
-
     // console.log('obj contato')
     // console.log(JSON.stringify(this.contatoPassado,null,2))
     // console.warn('---------------------------------')
@@ -189,229 +221,277 @@ export class DetailsPacienteComponent {
     // console.log('obj endereco')
     // console.log(JSON.stringify(this.enderecoPassado,null,2))
 
+    // delete this.pacientePassado.id
+    const { id,endereco,...pacienteRequest } = this.pacientePassado;
+    // let ob = {
+    //   nome: "Nome do Paciente",
+    //   dataNasc: "1990-01-01",
+    //   idade: 32,
+    //   rg: "123456789",
+    //   estadoCivil: "VIUVO",
+    //   filhos: 2,
+    //   nomeResponsavelPaciente: "Responsável do Paciente",
+    //   contato: {
+    //     celular: "1234567890",
+    //     telefone: "9876543210",
+    //     contFacebook: "facebook.com/paciente",
+    //     contInstagram: "instagram.com/paciente",
+    //     email: "paciente@example.com"
+    //   },
+    //   profissao: "Profissão do Paciente",
+    //   endereco: {
+    //     endRua: "Rua do Paciente",
+    //     endNumero: "123",
+    //     endBairro: "Bairro do Paciente",
+    //     endCidade: "Cidade do Paciente",
+    //     endCep: "12345-678",
+    //     endTipoResidencia: "CASA",
+    //     endObservacao: "Observação do Endereço"
+    //   },
+    //   deficiente: false,
+    //   deficiencia: "Tipo de Deficiência",
+    //   deficienciaFamilia: "Deficiência na Família",
+    //   convenio: true,
+    //   observacao: "Observação do Paciente",
+    //   aceite: true,
+    //   indicacao: "Indicação do Paciente",
+    //   isAtivo: true
+    // }
 
-    this.pacienteService.putPaciente(this.pacientePassado).subscribe((dados: any) => {
-      console.log('obj paciente atualizado')
+    this.pacienteService.cadastrarPaciente(pacienteRequest).subscribe((dados: any) => {
+      console.log('*****************************')
+      console.log('retorno paci:')
       console.log(JSON.stringify(dados,null,2));
+      console.log('*****************************')
     })
+
+    // const usuario = new Usuario(
+    //   dadosFormulario.nome,
+    //   dadosFormulario.email,
+    //   dadosFormulario.cpf,
+    //   dadosFormulario.nascimento,
+    //   dadosFormulario.senha
+    // );
   }
 
 
-  configurarFormulario(paciente: PacienteED, endereco: EnderecoED, contato: ContatoED, exame: ExameED | undefined) {
-    this.formularioDeUsuarioAtualizar = this.fb.group({
-      nome: [paciente.nome,Validators.compose( [Validators.required, Validators.minLength(3)])],
-      dataNasc: [this.dataFormatadaExibicao, Validators.required],
-      idade: [paciente.idade, Validators.compose([Validators.required])],
-      rg: [paciente.rg, Validators.compose([Validators.required, Validacoes.ValidaRg])],
-      estadoCivil: [paciente.estadoCivil, Validators.required],
-      filhos: [paciente.filhos],
-      nomeResponsavelPaciente: [paciente.nomeResponsavelPaciente, Validators.compose([Validators.required])],
-      profissao: [paciente.profissao, Validators.required],
 
-      // contatoForm: this.fb.group({
-        celular: [contato.celular, Validators.required],
-        telefone: [contato.telefone, Validators.compose([Validators.required, Validacoes.comecaComNove])],
-        contFacebook: [contato.contFacebook],
-        contInstagram: [contato.contInstagram],
-        email: [contato.email],
-      // },),
+configurarFormulario(paciente: PacienteED, endereco: EnderecoED, contato: ContatoED/*, exame: ExameED*/) {
+  this.formularioDeUsuario = this.fb.group({
+    nome: [paciente.nome,Validators.compose( [Validators.required, Validators.minLength(3)])],
+    dataNasc: [paciente.dataNasc, Validators.required],
+    idade: [paciente.idade, Validators.compose([Validators.required])],
+    rg: [paciente.rg, Validators.compose([Validators.required, Validacoes.ValidaRg])],
+    estadoCivil: [paciente.estadoCivil, Validators.required],
+    filhos: [paciente.filhos],
+    nomeResponsavelPaciente: [paciente.nomeResponsavelPaciente, Validators.compose([Validators.required])],
+    profissao: [paciente.profissao, Validators.required],
 
-
-      // endereco: this.fb.group({
-        endRua: [endereco.endRua],
-        endNumero: [endereco.endNumero],
-        endBairro: [endereco.endBairro],
-        endCidade: [endereco.endCidade],
-        endCep: [endereco.endCep],
-        endTipoResidencia: [endereco.endTipoResidencia],
-        endObservacao: [endereco.endObservacao],
-      // }),
-
-      deficiente: [paciente.deficiente],
-      deficiencia: [paciente.deficiencia],
-      deficienciaFamilia: [paciente.deficienciaFamilia],
-      convenio: [paciente.convenio],
-      observacaoPaciente: [paciente.observacao],
-      aceite: [paciente.aceite],
-      atendente: [exame?.atendente],
-      medicoAtendente: [exame?.medico, Validators.required],
-      exame: [exame?.nomeExame, Validators.required],
-      observacaoExame: [exame?.observacao],
-      valorExame: [exame?.valor, Validators.required],
-      local: [exame?.local, Validators.required],
-      indicacao: [paciente.indicacao],
-
-      // isAtivo: [paciente.isAtivo],
-      // dataCadastro: [paciente.dataCadastro],
-    },[
-      // {
-      //   Validator:Validacoes.comecaComNove
-      // },
-      // {
-      //   validator: Validacoes.maiorDeIdade
-      // }
-    ]
+    // contatoForm: this.fb.group({
+      celular: [contato.celular, Validators.required],
+      telefone: [contato.telefone, Validators.compose([Validators.required, Validacoes.comecaComNove])],
+      contFacebook: [contato.contFacebook],
+      contInstagram: [contato.contInstagram],
+      email: [contato.email],
+    // },),
 
 
-    );
+    // endereco: this.fb.group({
+      endRua: [endereco.endRua],
+      endNumero: [endereco.endNumero],
+      endBairro: [endereco.endBairro],
+      endCidade: [endereco.endCidade],
+      endCep: [endereco.endCep],
+      endTipoResidencia: [endereco.endTipoResidencia],
+      endObservacao: [endereco.endObservacao],
+    // }),
 
+    deficiente: [paciente.deficiente],
+    deficiencia: [paciente.deficiencia],
+    deficienciaFamilia: [paciente.deficienciaFamilia],
+    convenio: [paciente.convenio],
+    observacaoPaciente: [paciente.observacao],
+    aceite: [paciente.aceite],
+    indicacao: [paciente.indicacao],
+
+    // atendente: [exame.atendente],
+    // medicoAtendente: [exame.medico, Validators.required],
+    // exame: [exame.nomeExame, Validators.required],
+    // observacaoExame: [exame.observacao],
+    // valorExame: [exame.valor, Validators.required],
+    // local: [exame.local, Validators.required],
+
+    // isAtivo: [paciente.isAtivo],
+    // dataCadastro: [paciente.dataCadastro],
+  },[
+    // {
+    //   Validator:Validacoes.comecaComNove
+    // },
+    // {
+    //   validator: Validacoes.maiorDeIdade
+    // }
+  ]
+
+
+  );
+
+}
+
+  novo() {
+    this.formularioDeUsuario.reset();
   }
-
-
-  // novo() {
-  //   this.formularioDeUsuario.reset();
-  // }
 
   get nome(){
-    return this.formularioDeUsuarioAtualizar.get('nome');
+    return this.formularioDeUsuario.get('nome');
   }
 
   get dataNasc(){
-    return this.formularioDeUsuarioAtualizar.get('dataNasc');
+    return this.formularioDeUsuario.get('dataNasc');
   }
 
   verificaIdade(){
-      const idade = this.formularioDeUsuarioAtualizar.get('idade');
+      const idade = this.formularioDeUsuario.get('idade');
       if(idade !== null || idade !== undefined || idade !== '' || idade !== 0){
         this.flagIdade = idade !== null && idade.value >= 18 ? true : false;
       }
   }
 
   get idade(){
-    const idade = this.formularioDeUsuarioAtualizar.get('idade');
+    const idade = this.formularioDeUsuario.get('idade');
     if(idade !== null || idade !== undefined || idade !== '' || idade !== 0){
       this.flagIdade = idade !== null && idade.value >= 18 ? true : false;
     }
-    return this.formularioDeUsuarioAtualizar.get('idade');
+    return this.formularioDeUsuario.get('idade');
   }
 
   get rg(){
-    return this.formularioDeUsuarioAtualizar.get('rg');
+    return this.formularioDeUsuario.get('rg');
   }
 
   get estadoCivil(){
-    return this.formularioDeUsuarioAtualizar.get('estadoCivil');
+    return this.formularioDeUsuario.get('estadoCivil');
   }
 
   get filhos(){
-    return this.formularioDeUsuarioAtualizar.get('filhos');
+    return this.formularioDeUsuario.get('filhos');
   }
 
   get nomeResponsavelPaciente(){
-    return this.formularioDeUsuarioAtualizar.get('nomeResponsavelPaciente');
+    return this.formularioDeUsuario.get('nomeResponsavelPaciente');
   }
 
   get profissao(){
-    return this.formularioDeUsuarioAtualizar.get('profissao');
+    return this.formularioDeUsuario.get('profissao');
   }
 
   get celular(){
-    return this.formularioDeUsuarioAtualizar.get('celular');
+    return this.formularioDeUsuario.get('celular');
   }
 
   get telefone(){
-    return this.formularioDeUsuarioAtualizar.get('telefone');
+    return this.formularioDeUsuario.get('telefone');
   }
 
   get contFacebook(){
-    return this.formularioDeUsuarioAtualizar.get('contFacebook');
+    return this.formularioDeUsuario.get('contFacebook');
   }
 
   get contInstagram(){
-    return this.formularioDeUsuarioAtualizar.get('contInstagram');
+    return this.formularioDeUsuario.get('contInstagram');
   }
 
   get email(){
-    return this.formularioDeUsuarioAtualizar.get('email');
+    return this.formularioDeUsuario.get('email');
   }
 
   get rua(){
-    return this.formularioDeUsuarioAtualizar.get('rua');
+    return this.formularioDeUsuario.get('rua');
   }
 
   get numero(){
-    return this.formularioDeUsuarioAtualizar.get('numero');
+    return this.formularioDeUsuario.get('numero');
   }
 
   get bairro(){
-    return this.formularioDeUsuarioAtualizar.get('bairro');
+    return this.formularioDeUsuario.get('bairro');
   }
 
   get cidade(){
-    return this.formularioDeUsuarioAtualizar.get('cidade');
+    return this.formularioDeUsuario.get('cidade');
   }
 
   get tipoResidencia(){
-    return this.formularioDeUsuarioAtualizar.get('tipoResidencia');
+    return this.formularioDeUsuario.get('tipoResidencia');
   }
 
   get cep(){
-    return this.formularioDeUsuarioAtualizar.get('cep');
+    return this.formularioDeUsuario.get('cep');
   }
 
   get endObservacao(){
-    return this.formularioDeUsuarioAtualizar.get('endObservacao');
+    return this.formularioDeUsuario.get('endObservacao');
   }
 
   get deficiente(){
-    return this.formularioDeUsuarioAtualizar.get('deficiente');
+    return this.formularioDeUsuario.get('deficiente');
   }
 
   get deficiencia(){
-    return this.formularioDeUsuarioAtualizar.get('deficiencia');
+    return this.formularioDeUsuario.get('deficiencia');
   }
 
   get deficienciaFamilia(){
-    return this.formularioDeUsuarioAtualizar.get('deficienciaFamilia');
+    return this.formularioDeUsuario.get('deficienciaFamilia');
   }
 
   get convenio(){
-    return this.formularioDeUsuarioAtualizar.get('convenio');
+    return this.formularioDeUsuario.get('convenio');
   }
 
   get observacao(){
-    return this.formularioDeUsuarioAtualizar.get('observacao');
+    return this.formularioDeUsuario.get('observacao');
   }
 
   get aceite(){
-    return this.formularioDeUsuarioAtualizar.get('aceite');
+    return this.formularioDeUsuario.get('aceite');
   }
 
-  get atendente(){
-    return this.formularioDeUsuarioAtualizar.get('atendente');
-  }
-
-  get medicoAtendente(){
-    return this.formularioDeUsuarioAtualizar.get('medicoAtendente');
-  }
-
-  get exame(){
-    return this.formularioDeUsuarioAtualizar.get('exame');
-  }
-
-  get local(){
-    return this.formularioDeUsuarioAtualizar.get('local');
-  }
 
   get indicacao(){
-    return this.formularioDeUsuarioAtualizar.get('indicacao');
+    return this.formularioDeUsuario.get('indicacao');
   }
 
   get isAtivo(){
-    return this.formularioDeUsuarioAtualizar.get('isAtivo');
+    return this.formularioDeUsuario.get('isAtivo');
   }
 
-  get dataCadastro(){
-    return this.formularioDeUsuarioAtualizar.get('dataCadastro');
-  }
+  // get dataCadastro(){
+  //   return this.formularioDeUsuario.get('dataCadastro');
+  // }
+  // get atendente(){
+  //   return this.formularioDeUsuario.get('atendente');
+  // }
+
+  // get medicoAtendente(){
+  //   return this.formularioDeUsuario.get('medicoAtendente');
+  // }
+
+  // get exame(){
+  //   return this.formularioDeUsuario.get('exame');
+  // }
+
+  // get local(){
+  //   return this.formularioDeUsuario.get('local');
+  // }
+
 
 
   desabilitarValidacoesDoFormulario() {
-    // Object.keys(this.formularioDeUsuario?.controls).forEach(key => {
-    //   const control = this.formularioDeUsuario?.controls?.[key];
-    //   control.clearValidators();
-    //   control.updateValueAndValidity();
-    // });
+    Object.keys(this.formularioDeUsuario.controls).forEach(key => {
+      const control = this.formularioDeUsuario.controls[key];
+      control.clearValidators();
+      control.updateValueAndValidity();
+    });
   }
 
 
@@ -419,6 +499,3 @@ export class DetailsPacienteComponent {
 
 
 }
-
-
-

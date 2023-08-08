@@ -26,20 +26,9 @@ export class CadastrarPacienteComponent implements OnInit {
   flagIdade: boolean = false;
   desabilitarValidacoes: boolean = false;
 
-  pacientePassado = new PacienteED();
+  pacientePassado: PacienteED;
   enderecoPassado: EnderecoED;
-  // enderecoPassado: EnderecoED = {
-  //   endRua: '',
-  //   endNumero: '',
-  //   endBairro: '',
-  //   endCidade: '',
-  //   endTipoResidencia: '',
-  //   endCep: '',
-  //   endObservacao: ''
-  // };
   contatoPassado: ContatoED;
-
-  // examePassado: ExameED;
 
   constructor(
     private pacienteService: PacienteService,
@@ -48,8 +37,9 @@ export class CadastrarPacienteComponent implements OnInit {
 
   ngOnInit(): void {
 
-     this.enderecoPassado = {
-    endRua: '',
+
+    this.enderecoPassado = {
+      endRua: '',
     endNumero: '',
     endBairro: '',
     endCidade: '',
@@ -66,6 +56,26 @@ export class CadastrarPacienteComponent implements OnInit {
       email: ''
     };
 
+    this.pacientePassado = {
+      nome: '',
+      dataNasc: '',
+      idade: 1,
+      rg: '',
+      estadoCivil: '',
+      filhos: 0,
+      nomeResponsavelPaciente: '',
+      contato: this.contatoPassado,
+      profissao: '',
+      endereco: this.enderecoPassado,
+      deficiente: false,
+      deficiencia: '',
+      deficienciaFamilia: '',
+      convenio: false,
+      observacao: '',
+      aceite: false, //substitui assinatura
+      indicacao: '',
+      isAtivo: true,
+    }
 
 
     this.configurarFormulario(this.pacientePassado, this.enderecoPassado, this.contatoPassado/*, this.examePassado8*/);
@@ -134,14 +144,14 @@ export class CadastrarPacienteComponent implements OnInit {
 
 
     // this.pacientePassado.nome = this.formularioDeUsuario.value.nome;
-    this.pacientePassado.nome = 'anas'
-    // this.pacientePassado.dataNasc = this.formularioDeUsuario.value.dataNasc;
-    this.pacientePassado.dataNasc = "1990-01-01";
+    this.pacientePassado.nome = this.formularioDeUsuario.value.nome
+    this.pacientePassado.dataNasc = this.formularioDeUsuario.value.dataNasc;
+    // this.pacientePassado.dataNasc = "1990-01-01";
     // this.pacientePassado.idade = this.formularioDeUsuario.value.idade;
-    this.pacientePassado.idade = 56
+    this.pacientePassado.idade = this.formularioDeUsuario.value.idade;
     this.pacientePassado.rg = this.formularioDeUsuario.value.rg;
-    // this.pacientePassado.estadoCivil = this.formularioDeUsuario.value.estadoCivil;
-    this.pacientePassado.estadoCivil = 'SOLTEIRO';
+    this.pacientePassado.estadoCivil = this.formularioDeUsuario.value.estadoCivil;
+    // this.pacientePassado.estadoCivil = 'SOLTEIRO';
     this.pacientePassado.filhos = this.formularioDeUsuario.value.filhos;
     this.pacientePassado.nomeResponsavelPaciente = this.formularioDeUsuario.value.nomeResponsavelPaciente;
     this.pacientePassado.profissao = this.formularioDeUsuario.value.profissao;
@@ -173,10 +183,12 @@ export class CadastrarPacienteComponent implements OnInit {
     this.pacientePassado.endereco.endObservacao = this.formularioDeUsuario.value.endObservacao;
     // this.pacientePassado.endereco = enderecoCompleto;
 
-    this.pacientePassado.deficiente = this.formularioDeUsuario.value.deficiente === true || this.formularioDeUsuario.value.deficiente === 'true' || this.formularioDeUsuario.value.deficiente === true ? 1 : 0;
+    // this.pacientePassado.deficiente = this.formularioDeUsuario.value.deficiente === true || this.formularioDeUsuario.value.deficiente === 'true' || this.formularioDeUsuario.value.deficiente === true ? 1 : 0;
+    this.pacientePassado.deficiente = this.formularioDeUsuario.value.deficiente;
     this.pacientePassado.deficiencia = this.formularioDeUsuario.value.deficiencia;
     this.pacientePassado.deficienciaFamilia = this.formularioDeUsuario.value.deficienciaFamilia;
-    this.pacientePassado.convenio = this.formularioDeUsuario.value.convenio === true ? 1 : 0;
+    // this.pacientePassado.convenio = this.formularioDeUsuario.value.convenio === true ? 1 : 0;
+    this.pacientePassado.convenio = this.formularioDeUsuario.value.convenio;
     // this.pacientePassado.atendente = [this.formularioDeUsuario.value.atendente];
 
     this.pacientePassado.observacao = this.formularioDeUsuario.value.observacaoExame;
@@ -184,7 +196,7 @@ export class CadastrarPacienteComponent implements OnInit {
     // this.pacientePassado.aceite = this.formularioDeUsuario.value.aceite;
     this.pacientePassado.aceite = true
 
-    this.pacientePassado.isAtivo = 1;
+    this.pacientePassado.isAtivo = true;
     // this.pacientePassado.dataCadastro = new Date();
 
 

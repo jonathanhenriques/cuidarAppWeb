@@ -10,7 +10,7 @@ import { DetailsPacienteComponent } from './details-paciente/details-paciente.co
 const routes: Routes = [
   { path: 'cadastrar', component: CadastrarPacienteComponent  },
   { path: 'listar', component: ListarPacientesComponent  },
-  { path: 'paciente/:id', component: DetailsPacienteComponent  },
+  { path: 'detalhes/:id', component: DetailsPacienteComponent  },
 ];
 
 @NgModule({

@@ -1,5 +1,7 @@
 // import { DialogExame } from 'src/app/shared/dialog-util/dialog-exame.component';
 import { Component, OnInit } from '@angular/core';
+import { ContatoED } from 'src/app/models/ContatoED';
+import { EnderecoED } from 'src/app/models/EnderecoED';
 import { PacienteED } from 'src/app/models/PacienteED';
 import { PacienteFiltro } from 'src/app/models/filtros/PacienteFiltro';
 // import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +16,10 @@ import { PacienteService } from 'src/app/service/paciente.service';
 })
 export class ListarPacientesComponent implements OnInit {
 
-  private paciente: PacienteED = new PacienteED();
+  private paciente: PacienteED;
+  pacientePassado: PacienteED;
+  enderecoPassado: EnderecoED;
+  contatoPassado: ContatoED;
   filtro = new PacienteFiltro();
 
   pacientes: PacienteED[] = [];
@@ -28,6 +33,47 @@ export class ListarPacientesComponent implements OnInit {
     ){}
 
   ngOnInit(): void {
+
+
+
+    this.enderecoPassado = {
+      endRua: '',
+    endNumero: '',
+    endBairro: '',
+    endCidade: '',
+    endTipoResidencia: '',
+    endCep: '',
+    endObservacao: ''
+  };
+
+    this.contatoPassado = {
+      celular: '',
+      telefone: '',
+      contFacebook: '',
+      contInstagram: '',
+      email: ''
+    };
+
+    this.pacientePassado = {
+      nome: '',
+      dataNasc: '',
+      idade: 1,
+      rg: '',
+      estadoCivil: '',
+      filhos: 0,
+      nomeResponsavelPaciente: '',
+      contato: this.contatoPassado,
+      profissao: '',
+      endereco: this.enderecoPassado,
+      deficiente: false,
+      deficiencia: '',
+      deficienciaFamilia: '',
+      convenio: false,
+      observacao: '',
+      aceite: false, //substitui assinatura
+      indicacao: '',
+      isAtivo: true,
+    }
 
     this.listarPacientes(this.currentPage);
   }

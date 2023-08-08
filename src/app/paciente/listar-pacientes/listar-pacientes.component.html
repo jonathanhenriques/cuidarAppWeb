@@ -18,7 +18,7 @@
     <tbody>
       <tr *ngFor="let paciente of pacientes">
         <th scope="row">{{ paciente.id }}</th>
-        <td>{{ paciente.nome }}</td>
+        <td><a [routerLink]="['/detalhes',paciente.id]">{{ paciente.nome }}</a></td>
         <td>{{ paciente.rg }}</td>
         <td>{{ paciente.dataNasc | date: 'dd/MM/yyyy' }}</td>
         <td>{{ paciente.idade }}</td>

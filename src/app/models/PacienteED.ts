@@ -2,61 +2,27 @@ import { ContatoED } from "./ContatoED";
 import { EnderecoED } from "./EnderecoED";
 import { ExameED } from "./ExameED";
 
-export class PacienteED {
-  public id: number;
-  public codigo: string
-  public nome: string;
-  public dataNasc: string;
-  public idade: number;
-  public rg: string;
-  public estadoCivil: string;
-  public filhos: number;
-  public nomeResponsavelPaciente: string;
-  public contato: ContatoED;
-  public profissao: string;
-  public endereco: EnderecoED;
-  public deficiente: number;
-  public deficiencia: string;
-  public deficienciaFamilia: string;
-  public convenio: number;
-  public observacao: string;
-  public aceite: boolean; //substitui assinatura
-  // public atendente: string[];
-  // public medicoAtendente: string[];
-  public exames?: ExameED[] | null;
-  // public local: string[];
-  public indicacao: string;
-  public isAtivo: 1;
-  public dataCadastro?: Date;
-
-  constructor() {
-    this.id =  0;
-    this.nome = '';
-    this.dataNasc = '';
-    this.idade = 0;
-    this.rg = '';
-    this.estadoCivil = '';
-    this.filhos = 0;
-    this.nomeResponsavelPaciente = '';
-    this.contato =  {
-      celular: '',
-      telefone: '',
-      contFacebook: '',
-      contInstagram: '',
-      email: '',
-    }
-    this.profissao = '';
-    this.endereco;
-    this.deficiente = 0;
-    this.deficiencia = '';
-    this.deficienciaFamilia = '';
-    this.convenio = 0;
-    this.observacao = '';
-    this.aceite = true; //substitui assinatura
-    // this.atendente = [];
-    // this.medicoAtendente = [];
-    // this.local = [];
-    this.indicacao = '';
-    this.isAtivo = 1;
-  }
+export interface PacienteED {
+  id?: number;
+  codigo?: string
+  nome: string;
+  dataNasc: string;
+  idade: number;
+  rg: string;
+  estadoCivil: string;
+  filhos: number;
+  nomeResponsavelPaciente: string;
+  contato: ContatoED;
+  profissao: string;
+  endereco: EnderecoED;
+  deficiente: boolean;
+  deficiencia: string;
+  deficienciaFamilia: string;
+  convenio: boolean;
+  observacao: string;
+  aceite: boolean; //substitui assinatura
+  exames?: ExameED[] | null;
+  indicacao: string;
+  isAtivo: boolean;
+  dataCadastro?: Date;
 }
