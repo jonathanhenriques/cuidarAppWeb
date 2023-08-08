@@ -136,7 +136,7 @@ export class ListarExamesComponent implements OnInit {
   buscaPacientePorRG(){
     // this.pacienteRG == undefined || null || '' ? this.pacienteId = undefined : this.pacienteId
     if (this.pacienteRG !== undefined && this.pacienteRG !== null && this.pacienteRG !== '') {
-        this.pacienteService.getByRG(this.pacienteRG).subscribe((resposta: PacienteED) => {
+        this.pacienteService.findByRgPaciente(this.pacienteRG).subscribe((resposta: PacienteED) => {
             this.pacienteId = resposta.id;
         });
     }

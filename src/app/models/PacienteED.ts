@@ -20,9 +20,10 @@ export interface PacienteED {
   deficienciaFamilia: string;
   convenio: boolean;
   observacao: string;
-  aceite: boolean; //substitui assinatura
+  isAceite: boolean; //substitui assinatura
   exames?: ExameED[] | null;
   indicacao: string;
   isAtivo: boolean;
   dataCadastro?: Date;
+  dataAtualizacao?: string
 }

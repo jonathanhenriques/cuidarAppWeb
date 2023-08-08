@@ -1,12 +1,84 @@
 
 
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+.titulo {
+  padding: 3rem 1rem 3rem;
+  font-size: 2rem;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: flex-start;
+  align-items: center;
+
+}
+
+.container {
+  max-width: 700px;
+  width: 100%;
+
+}
+
+.formulario {
+  border-radius: 5px;
+  border-color: #4CAF50;
+}
+
+.identificador {
+  display: none;
+  font-style: oblique;
+  font-size: small;
+}
+
+hr {
+  margin: 20px;
+}
+
+/* Define a classe linha como um container flexível */
+.linha {
+  display: flex;
+}
+
+/* Define a classe input-box como um container flexível com direção de coluna e margem à direita */
+.input-box {
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+  padding: 5px;
+  align-items: center;
+
+}
+
+/* Define o estilo para os elementos label dentro da classe input-box */
+.input-box label {
+  font-weight: bold; /* Deixa o texto em negrito */
+  margin-right: 3px;
+}
+
+/* Define o estilo para os elementos input e select dentro da classe input-box */
+.input-box input,
+.input-box select {
+  padding: 5px; /* Adiciona um espaçamento interno de 5px */
+  border-radius: 5px; /* Arredonda as bordas */
+  border: 1px solid #ccc; /* Adiciona uma borda cinza clara */
+  width: 100%;
+}
+
+#email {
+  white-space: nowrap;
+}
+
+#observacaosobreopaciente {
+  word-wrap: break-word;
+   width: 100px;
+}
+
 
 /* Selects the table element and sets its border to collapse into a single border and its width to 100% of its parent element */
 table {
@@ -33,72 +105,43 @@ th {
 }
 
 
-body {
-  display: flex;
-  height: 100vh;
-  justify-content: flex-start;
-  align-items: center;
 
-}
-
-.container {
-  max-width: 700px;
-  width: 100%;
-
-}
-
-.formulario {
-  border-radius: 5px;
-  border-color: #4CAF50;
-}
-
-.identificador {
-
-  font-style: oblique;
-  font-size: small;
-}
-
-hr {
-  margin: 20px;
-}
-
-/* Define a classe linha como um container flexível */
-.linha {
-  display: flex;
-}
-
-/* Define a classe input-box como um container flexível com direção de coluna e margem à direita */
-.input-box {
-  display: flex;
-  flex-direction: row;
-  margin-right: 10px;
-  padding: 5px;
-  align-items: center;
-}
-
-/* Define o estilo para os elementos label dentro da classe input-box */
-.input-box label {
-  font-weight: bold; /* Deixa o texto em negrito */
-  margin-right: 3px;
-}
-
-/* Define o estilo para os elementos input e select dentro da classe input-box */
-.input-box input,
-.input-box select {
-  padding: 5px; /* Adiciona um espaçamento interno de 5px */
-  border-radius: 5px; /* Arredonda as bordas */
-  border: 1px solid #ccc; /* Adiciona uma borda cinza clara */
-  width: 100%;
-}
-
-#email {
-  white-space: nowrap;
+/* Para dispositivos móveis */
+@media (max-width: 767px) {
+  /* Ajuste o tamanho dos campos de entrada */
+  .linha {
+    flex-direction: column;
+  }
+  .input-box {
+    width: 60%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }
 
 
-#observacaosobreopaciente {
-  word-wrap: break-word;
-   width: 100px;
-
+/* Para tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Ajuste a largura das colunas */
+  .form-col {
+    width: 50%;
+    margin-right: 2%;
+  }
+  .form-col:last-child {
+    margin-right: 0;
+  }
 }
+
+/* Para computadores */
+@media (min-width: 992px) {
+  /* Ajuste a largura das colunas */
+  .form-col {
+    width: 32%;
+    margin-right: 2%;
+  }
+  .form-col:last-child {
+    margin-right: 0;
+  }
+}
+
 

@@ -1,10 +1,11 @@
 <div class="container">
-  <!-- <h1 class="titulo">Cadastrar Paciente</h1> -->
+  <h1 class="titulo">Cadastrar Paciente</h1>
 
   <form
     class="formulario"
     [formGroup]="formularioDeUsuario"
-    (ngSubmit)="enviarDados()"
+    (keydown)="onKeyDown($event)"
+    (ngSubmit)="cadastrarPaciente()"
   >
 
   <!-- PACIENTE -->
@@ -22,7 +23,7 @@
       </div>
 
       <div class="linha">
-        <div class="input-box">
+        <!-- <div class="input-box">
           <label for="idade">Idade:</label>
           <input
             type="number"
@@ -31,7 +32,7 @@
             min="0"
             max="100"
           />
-        </div>
+        </div> -->
         <div class="input-box">
           <label for="rg">RG:</label>
           <input type="text" id="rg" formControlName="rg" />
@@ -50,7 +51,7 @@
 
       <div class="linha">
         <div class="input-box">
-          <label for="filhos">Tem filhos?</label>
+          <label for="filhos">n° de filhos:</label>
           <input
             type="number"
             id="filhos"
@@ -219,7 +220,7 @@
     <hr />
     <div class="input-box">
       <label for="aceite">Termo de Aceite:</label>
-      <input type="checkbox" id="aceite" formControlName="aceite" />
+      <input type="checkbox" id="aceite" formControlName="isAceite" />
     </div>
 
     {{flagIdade | json}}

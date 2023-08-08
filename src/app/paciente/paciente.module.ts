@@ -7,6 +7,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CadastrarPacienteComponent } from './cadastrar-paciente/cadastrar-paciente.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DetailsPacienteComponent } from './details-paciente/details-paciente.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -18,6 +19,7 @@ import { DetailsPacienteComponent } from './details-paciente/details-paciente.co
   ],
   imports: [
     CommonModule,
+    // BrowserAnimationsModule,
     NgbModule,
     NgbPaginationModule ,
     // NgxPaginationModule,

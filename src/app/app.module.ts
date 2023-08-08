@@ -10,6 +10,8 @@ import { MensagemComponent } from './shared/mensagem/mensagem.component';
 import { ListarExamesComponent } from './exame/listar-exames/listar-exames.component';
 import { ExameModule } from './exame/exame.module';
 import { NgxMaskModule } from 'ngx-mask';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,17 @@ import { NgxMaskModule } from 'ngx-mask';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     NgxMaskModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      closeButton: true,
+      progressBar: true,
+      preventDuplicates: true,
+    }),
 
 
 

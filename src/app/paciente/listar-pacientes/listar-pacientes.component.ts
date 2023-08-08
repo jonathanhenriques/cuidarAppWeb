@@ -70,7 +70,7 @@ export class ListarPacientesComponent implements OnInit {
       deficienciaFamilia: '',
       convenio: false,
       observacao: '',
-      aceite: false, //substitui assinatura
+      isAceite: false, //substitui assinatura
       indicacao: '',
       isAtivo: true,
     }
@@ -84,7 +84,7 @@ export class ListarPacientesComponent implements OnInit {
     this.filtro.pagina = pagina;
 
     this.pacienteService
-    .getAllPacientes(this.filtro)
+    .findAllPacientes(this.filtro)
     .then((dataPacientes: any) => {
       this.pacientes = dataPacientes.pacientes;
       this.totalItems = dataPacientes.total;
@@ -106,7 +106,7 @@ export class ListarPacientesComponent implements OnInit {
 
   listarPacientesAtivos(): void {
     this.pacienteService
-    .getAllPacientesAtivos(true)
+    .findAllPacientesAtivos(true)
     .subscribe((dataPacientes: PacienteED[]) => {
       this.pacientes = dataPacientes;
       });

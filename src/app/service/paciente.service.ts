@@ -27,30 +27,25 @@ export class PacienteService {
 
   // private baseUrl = 'http://localhost:8081/api/v1/pacientes';
 
-  obterPacientePorId(id: number): Observable<PacienteED> {
+  findByIdPaciente(id: number): Observable<PacienteED> {
     const url = `${this.pacientesUrl}/${id}`;
     return this.http.get<PacienteED>(url);
   }
 
-  getByRG(RG: string): Observable<PacienteED> {
+  findByCodigoPaciente(codigoPaciente: string): Observable<any> {
+    console.log('codigoPaciente: ' + codigoPaciente)
+    const url = `${this.pacientesUrl}/${codigoPaciente}`;
+
+    return this.http.get<PacienteED>(url).pipe(tap((retorno: any) => console.log('retorno: ' + retorno)))
+  }
+
+  findByRgPaciente(RG: string): Observable<PacienteED> {
     const url = `${this.pacientesUrl}/RG/${RG}`;
     return this.http.get<PacienteED>(url).pipe(tap((data:PacienteED) => console.log('pacienteRG: ' + data)));
   }
 
-  getAll(): Observable<any[]> {
-    return this.http.get<any>(`${this.pacientesUrl}/usuario/todos`/*, this.token*/).pipe(
-      tap(response => console.log(response)));
-  }
 
-
-  // obterTodosPacientes(): Promise<any[]> {
-  //   return firstValueFrom(this.http.get<any[]>(`${this.pacientesUrl}`/*, this.token*/))
-  //   .then((response: any) => response['content']);
-  // }
-
-
-
-  cadastrarPaciente(paciente: any): Observable<any> {
+  postPaciente(paciente: any): Observable<any> {
     console.log("================================")
     console.log("corpo da req: ")
     console.log(JSON.stringify(paciente, null, 2))
@@ -60,7 +55,7 @@ export class PacienteService {
   }
 
 
-  getAllPacientes(filtro: PacienteFiltro): Promise<any> {
+  findAllPacientes(filtro: PacienteFiltro): Promise<any> {
 
     // const headers = new HttpHeaders()
     //   .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
@@ -87,40 +82,33 @@ export class PacienteService {
     });
   }
 
-  getAllPacientesAtivos(ativo: boolean): Observable<PacienteED[]> {
+  findAllPacientesAtivos(ativo: boolean): Observable<PacienteED[]> {
     return this.http.get<PacienteED[]>(
     this.pacientesUrl + `/isAtivo/${ativo}` /*this.token*/
     );
   }
 
-  getPacienteById(id: number): Observable<PacienteED> {
-    return this.http.get<PacienteED>(
-      this.pacientesUrl + `/${id}` /*this.token*/
-    );
-  }
+  // findByIdPaciente(id: number): Observable<PacienteED> {
+  //   return this.http.get<PacienteED>(
+  //     this.pacientesUrl + `/${id}` /*this.token*/
+  //   );
+  // }
 
-  getPacientesByNome(nome: string): Observable<PacienteED[]> {
+  findByNomePacientes(nome: string): Observable<PacienteED[]> {
     return this.http.get<PacienteED[]>(
       this.pacientesUrl + `/nomePaciente/${nome}` /*this.token*/
       );
     }
 
-  getPacientesByNomeExame(nomeExame: string): Observable<PacienteED[]> {
+  findByNomeExamePacientes(nomeExame: string): Observable<PacienteED[]> {
     return this.http.get<PacienteED[]>(
     this.pacientesUrl + `/nomeExame/${nomeExame}` /*this.token*/
     );
   }
 
-  getPacientesPorEndereco(nomeRua: string): Observable<PacienteED[]> {
+  findPacienteByEndereco(nomeRua: string): Observable<PacienteED[]> {
     return this.http.get<PacienteED[]>(
     this.pacientesUrl + `/provas/descricao/${nomeRua}` /*this.token*/
-    );
-  }
-
-  postPaciente(paciente: PacienteED): Observable<PacienteED> {
-    return this.http.post<PacienteED>(
-      this.pacientesUrl,
-      paciente /*this.token*/
     );
   }
 

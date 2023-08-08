@@ -8,6 +8,8 @@ import {
   ValidatorFn,
   FormControl,
 } from '@angular/forms';
+import { error } from 'console';
+import { ToastrService } from 'ngx-toastr';
 import { EnderecoED } from 'src/app/models/EnderecoED';
 import { ExameED } from 'src/app/models/ExameED';
 import { PacienteED } from 'src/app/models/PacienteED';
@@ -33,11 +35,31 @@ export class CadastrarPacienteComponent implements OnInit {
   constructor(
     private pacienteService: PacienteService,
     private fb: FormBuilder,
+    // private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
 
+    this.inicializaObjs();
+    this.configurarFormulario(this.pacientePassado, this.enderecoPassado, this.contatoPassado/*, this.examePassado8*/);
+    this.desabilitarValidacoesDoFormulario();
+    this.desabilitarValidacoes = true;
+  }
 
+  private calcularIdade(dataNascimento: any): number {
+    const hoje = new Date();
+    const nascimento = new Date(dataNascimento);
+    const diferencaAnos = hoje.getFullYear() - nascimento.getFullYear();
+
+    // Verifica se o aniversário já ocorreu este ano
+    if (hoje.getMonth() < nascimento.getMonth() || (hoje.getMonth() === nascimento.getMonth() && hoje.getDate() < nascimento.getDate())) {
+      return diferencaAnos - 1;
+    } else {
+      return diferencaAnos;
+    }
+  }
+
+  private inicializaObjs(){
     this.enderecoPassado = {
       endRua: '',
     endNumero: '',
@@ -72,86 +94,21 @@ export class CadastrarPacienteComponent implements OnInit {
       deficienciaFamilia: '',
       convenio: false,
       observacao: '',
-      aceite: false, //substitui assinatura
+      isAceite: false, //substitui assinatura
       indicacao: '',
       isAtivo: true,
     }
 
-
-    this.configurarFormulario(this.pacientePassado, this.enderecoPassado, this.contatoPassado/*, this.examePassado8*/);
-    this.desabilitarValidacoesDoFormulario();
-    this.desabilitarValidacoes = true;
   }
 
 
+  private constroiPacienteParaEnvio(){
 
-  enviarDados() {
-
-    // let jso = {
-    //   "nome": "Jonathan",
-    //   "dataNasc": "1997-05-05",
-    //   "idade": "25",
-    //   "rg": "501818352",
-    //   "estadoCivil": "SOLTEIRO",
-    //   "filhos": 0,
-    //   "nomeResponsavelPaciente": "",
-    //   "profissao": "Desenvolvedor",
-    //   "contatoForm": {
-    //     "celular": "11959503571",
-    //     "telefone": "1140551452",
-    //     "contFacebook": "faceboks",
-    //     "contInstagram": "instagram",
-    //     "email": "email@email.com"
-    //   },
-    //   "enderecoForm": {
-    //     "rua": "ruas",
-    //     "numero": "1",
-    //     "bairro": "bairros",
-    //     "cidade": "Cidades",
-    //     "tipoResidencia": "Casa",
-    //     "cep": "09951490",
-    //     "endObservacao": "Obersevado"
-    //   },
-    //   "deficiente": false,
-    //   "deficiencia": "",
-    //   "deficienciaFamilia": "",
-    //   "convenio": false,
-    //   "observacao": "",
-    //   "aceite": true,
-    //   "atendente": [
-    //     "andreia"
-    //   ],
-    //   "medicoAtendente": [
-    //     "Japones"
-    //   ],
-    //   "exame": "vista",
-    //   "local": [
-    //     "Diadema"
-    //   ],
-    //   "indicacao": "",
-    //   "isAtivo": false,
-    //   "dataCadastro": "2023-04-23T18:43:29.369Z",
-    //   "exames": [{
-    //     "id": 0,
-    //     "medico": "J",
-    //     "local": "D",
-    //     "paciente": null,
-    //     "dataExame": "2023-04-23T19:16:54.830Z",
-    //     "valor": 0,
-    //     "observacao": ""
-    //   }]
-    // }
-
-
-    // this.pacientePassado.nome = this.formularioDeUsuario.value.nome;
     this.pacientePassado.nome = this.formularioDeUsuario.value.nome
     this.pacientePassado.dataNasc = this.formularioDeUsuario.value.dataNasc;
-    // this.pacientePassado.dataNasc = "1990-01-01";
-    // this.pacientePassado.idade = this.formularioDeUsuario.value.idade;
-    this.pacientePassado.idade = this.formularioDeUsuario.value.idade;
+    this.pacientePassado.idade = this.calcularIdade(this.pacientePassado.dataNasc)
     this.pacientePassado.rg = this.formularioDeUsuario.value.rg;
     this.pacientePassado.estadoCivil = this.formularioDeUsuario.value.estadoCivil;
-    // this.pacientePassado.estadoCivil = 'SOLTEIRO';
     this.pacientePassado.filhos = this.formularioDeUsuario.value.filhos;
     this.pacientePassado.nomeResponsavelPaciente = this.formularioDeUsuario.value.nomeResponsavelPaciente;
     this.pacientePassado.profissao = this.formularioDeUsuario.value.profissao;
@@ -164,16 +121,7 @@ export class CadastrarPacienteComponent implements OnInit {
     this.pacientePassado.contato.contInstagram = this.formularioDeUsuario.value.contInstagram;
     this.pacientePassado.contato.email = this.formularioDeUsuario.value.email;
 
-    this.pacientePassado.endereco = this.enderecoPassado;
-    //  {
-    //   endRua: '',
-    //   endNumero: '',
-    //   endBairro: '',
-    //   endCidade: '',
-    //   endTipoResidencia: '',
-    //   endCep: '',
-    //   endObservacao: ''
-    // };
+    // this.pacientePassado.endereco = this.enderecoPassado;
     this.pacientePassado.endereco.endRua = this.formularioDeUsuario.value.endRua;
     this.pacientePassado.endereco.endNumero = this.formularioDeUsuario.value.endNumero;
     this.pacientePassado.endereco.endBairro = this.formularioDeUsuario.value.endBairro;
@@ -181,99 +129,40 @@ export class CadastrarPacienteComponent implements OnInit {
     this.pacientePassado.endereco.endTipoResidencia = this.formularioDeUsuario.value.endTipoResidencia;
     this.pacientePassado.endereco.endCep = this.formularioDeUsuario.value.endCep;
     this.pacientePassado.endereco.endObservacao = this.formularioDeUsuario.value.endObservacao;
-    // this.pacientePassado.endereco = enderecoCompleto;
 
-    // this.pacientePassado.deficiente = this.formularioDeUsuario.value.deficiente === true || this.formularioDeUsuario.value.deficiente === 'true' || this.formularioDeUsuario.value.deficiente === true ? 1 : 0;
     this.pacientePassado.deficiente = this.formularioDeUsuario.value.deficiente;
     this.pacientePassado.deficiencia = this.formularioDeUsuario.value.deficiencia;
     this.pacientePassado.deficienciaFamilia = this.formularioDeUsuario.value.deficienciaFamilia;
-    // this.pacientePassado.convenio = this.formularioDeUsuario.value.convenio === true ? 1 : 0;
     this.pacientePassado.convenio = this.formularioDeUsuario.value.convenio;
-    // this.pacientePassado.atendente = [this.formularioDeUsuario.value.atendente];
 
     this.pacientePassado.observacao = this.formularioDeUsuario.value.observacaoExame;
     this.pacientePassado.indicacao = this.formularioDeUsuario.value.indicacao;
-    // this.pacientePassado.aceite = this.formularioDeUsuario.value.aceite;
-    this.pacientePassado.aceite = true
+    this.pacientePassado.isAceite = this.formularioDeUsuario.value.isAceite;
 
     this.pacientePassado.isAtivo = true;
-    // this.pacientePassado.dataCadastro = new Date();
 
+  }
 
+  cadastrarPaciente() {
 
+    this.constroiPacienteParaEnvio()
 
-    // console.log(JSON.stringify(this.pacientePassado,null,2))
-    console.log('obj formulario')
-    console.log(JSON.stringify(this.formularioDeUsuario.value,null,2))
-    console.warn('---------------------------------')
-    console.log('obj paciente')
-    console.log(JSON.stringify(this.pacientePassado,null,2))
-    console.warn('---------------------------------')
-    // console.log('obj contato')
-    // console.log(JSON.stringify(this.contatoPassado,null,2))
-    // console.warn('---------------------------------')
-    // console.log('obj exame')
-    // console.log(JSON.stringify(this.examePassado,null,2))
-    // console.warn('---------------------------------')
-    // console.log('obj endereco')
-    // console.log(JSON.stringify(this.enderecoPassado,null,2))
-
-    // delete this.pacientePassado.id
-    const { id,endereco,...pacienteRequest } = this.pacientePassado;
-    // let ob = {
-    //   nome: "Nome do Paciente",
-    //   dataNasc: "1990-01-01",
-    //   idade: 32,
-    //   rg: "123456789",
-    //   estadoCivil: "VIUVO",
-    //   filhos: 2,
-    //   nomeResponsavelPaciente: "Responsável do Paciente",
-    //   contato: {
-    //     celular: "1234567890",
-    //     telefone: "9876543210",
-    //     contFacebook: "facebook.com/paciente",
-    //     contInstagram: "instagram.com/paciente",
-    //     email: "paciente@example.com"
-    //   },
-    //   profissao: "Profissão do Paciente",
-    //   endereco: {
-    //     endRua: "Rua do Paciente",
-    //     endNumero: "123",
-    //     endBairro: "Bairro do Paciente",
-    //     endCidade: "Cidade do Paciente",
-    //     endCep: "12345-678",
-    //     endTipoResidencia: "CASA",
-    //     endObservacao: "Observação do Endereço"
-    //   },
-    //   deficiente: false,
-    //   deficiencia: "Tipo de Deficiência",
-    //   deficienciaFamilia: "Deficiência na Família",
-    //   convenio: true,
-    //   observacao: "Observação do Paciente",
-    //   aceite: true,
-    //   indicacao: "Indicação do Paciente",
-    //   isAtivo: true
-    // }
-
-    this.pacienteService.cadastrarPaciente(pacienteRequest).subscribe((dados: any) => {
+    const { id,...pacienteRequest } = this.pacientePassado;
+    this.pacienteService.postPaciente(pacienteRequest).subscribe((dados: any) => {
+      // this.toastr.success('Cadastro realizado!')
       console.log('*****************************')
       console.log('retorno paci:')
       console.log(JSON.stringify(dados,null,2));
       console.log('*****************************')
-    })
-
-    // const usuario = new Usuario(
-    //   dadosFormulario.nome,
-    //   dadosFormulario.email,
-    //   dadosFormulario.cpf,
-    //   dadosFormulario.nascimento,
-    //   dadosFormulario.senha
-    // );
+    },(error) => {
+      // this.toastr.error('Cadastro não realizado. Tente novamente.')
+    }
+    )
   }
 
 
 
-configurarFormulario(paciente: PacienteED, endereco: EnderecoED, contato: ContatoED/*, exame: ExameED*/) {
+private configurarFormulario(paciente: PacienteED, endereco: EnderecoED, contato: ContatoED) {
   this.formularioDeUsuario = this.fb.group({
     nome: [paciente.nome,Validators.compose( [Validators.required, Validators.minLength(3)])],
     dataNasc: [paciente.dataNasc, Validators.required],
@@ -308,18 +197,9 @@ configurarFormulario(paciente: PacienteED, endereco: EnderecoED, contato: Contat
     deficienciaFamilia: [paciente.deficienciaFamilia],
     convenio: [paciente.convenio],
     observacaoPaciente: [paciente.observacao],
-    aceite: [paciente.aceite],
+    isAceite: [paciente.isAceite],
     indicacao: [paciente.indicacao],
 
-    // atendente: [exame.atendente],
-    // medicoAtendente: [exame.medico, Validators.required],
-    // exame: [exame.nomeExame, Validators.required],
-    // observacaoExame: [exame.observacao],
-    // valorExame: [exame.valor, Validators.required],
-    // local: [exame.local, Validators.required],
-
-    // isAtivo: [paciente.isAtivo],
-    // dataCadastro: [paciente.dataCadastro],
   },[
     // {
     //   Validator:Validacoes.comecaComNove
@@ -328,8 +208,6 @@ configurarFormulario(paciente: PacienteED, endereco: EnderecoED, contato: Contat
     //   validator: Validacoes.maiorDeIdade
     // }
   ]
-
-
   );
 
 }
@@ -462,28 +340,7 @@ configurarFormulario(paciente: PacienteED, endereco: EnderecoED, contato: Contat
     return this.formularioDeUsuario.get('isAtivo');
   }
 
-  // get dataCadastro(){
-  //   return this.formularioDeUsuario.get('dataCadastro');
-  // }
-  // get atendente(){
-  //   return this.formularioDeUsuario.get('atendente');
-  // }
-
-  // get medicoAtendente(){
-  //   return this.formularioDeUsuario.get('medicoAtendente');
-  // }
-
-  // get exame(){
-  //   return this.formularioDeUsuario.get('exame');
-  // }
-
-  // get local(){
-  //   return this.formularioDeUsuario.get('local');
-  // }
-
-
-
-  desabilitarValidacoesDoFormulario() {
+  private desabilitarValidacoesDoFormulario() {
     Object.keys(this.formularioDeUsuario.controls).forEach(key => {
       const control = this.formularioDeUsuario.controls[key];
       control.clearValidators();
@@ -491,8 +348,10 @@ configurarFormulario(paciente: PacienteED, endereco: EnderecoED, contato: Contat
     });
   }
 
-
-
-
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Evita o comportamento padrão de enviar o formulário
+    }
+  }
 
 }
