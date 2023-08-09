@@ -25,7 +25,7 @@ app.use(express.static(__dirname + "/dist/lojaonline"));
 // servir o index.html do angular
 
 app.get('*', (req, res) => {
-    res.sendFile(__dirname + "/dist/lojaonline/index.html");
+    res.sendFile(__dirname + "/dist/cuidarAppWeb/index.html");
 });
 
 app.listen(port, async() => {
