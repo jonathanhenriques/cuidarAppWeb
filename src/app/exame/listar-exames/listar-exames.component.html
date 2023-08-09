@@ -84,7 +84,7 @@
     <tbody>
       <tr *ngFor="let exame of exames">
         <th scope="row">{{ exame.id }}</th>
-        <td><a [routerLink]="['/detalhes', exame.id]">{{ exame.nomeExame }}</a></td>
+        <td><a [routerLink]="['/detalhes-exame', exame?.codigo]">{{ exame.nomeExame }}</a></td>
         <td>{{ exame.paciente?.nome }}</td>
         <td>{{ exame.dataExame | date : "dd/MM/yyyy" }}</td>
         <!-- <td><button (click)="adicionarPaciente(paciente)">Adicionar</button></td> -->

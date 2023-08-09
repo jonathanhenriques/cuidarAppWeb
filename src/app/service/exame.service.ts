@@ -4,6 +4,7 @@ import { Observable, firstValueFrom, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ParametroExameRequest } from '../models/filtros/ParametroExameRequest';
 import { ExameFiltro } from '../models/filtros/ExameFiltro';
+import { ExameED } from '../models/ExameED';
 
 
 
@@ -18,13 +19,13 @@ export class ExameService {
     this.examesUrl = `${environment.urlTeste}/exames`
   }
 
-  getAll(): Observable<any>{
+  findAll(): Observable<any>{
     return this.http.get<any>(`${this.examesUrl}`)
 
   }
 
 
-  getAllWithParameters(listaParametros: ParametroExameRequest, filtro: ExameFiltro): Promise<any> {
+  findAllWithParameters(listaParametros: ParametroExameRequest, filtro: ExameFiltro): Promise<any> {
     let params = new HttpParams() //os parametros precisam estar como strings
     .set('page', filtro.pagina.toString())
     .set('size', filtro.itensPorPagina.toString());
@@ -87,5 +88,26 @@ export class ExameService {
       });
 
   }
+
+  postExame(exame: ExameED): Observable<ExameED> {
+    return this.http.post<ExameED>(
+      this.examesUrl,exame
+    );
+  }
+
+  putExame(exame: ExameED): Observable<ExameED> {
+    return this.http.put<ExameED>(
+      this.examesUrl,exame
+    );
+  }
+
+
+  findByCodigoExame(codigoExame: string): Observable<any> {
+    console.log('codigoExame: ' + codigoExame)
+    const url = `${this.examesUrl}/${codigoExame}`;
+
+    return this.http.get<ExameED>(url).pipe(tap((retorno: any) => console.log('retorno: ' + retorno)))
+  }
+
 
 }

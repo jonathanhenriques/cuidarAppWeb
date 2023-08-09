@@ -1,27 +1,22 @@
-import { ExameService } from './../../service/exame.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AtendenteED } from 'src/app/models/AtendenteED';
-import { ContatoED } from 'src/app/models/ContatoED';
-import { EnderecoED } from 'src/app/models/EnderecoED';
 import { ExameED } from 'src/app/models/ExameED';
 import { LocalED } from 'src/app/models/LocalED';
 import { MedicoED } from 'src/app/models/MedicoED';
-import { PacienteED } from 'src/app/models/PacienteED';
 import { AtendenteService } from 'src/app/service/atendente.service';
+import { ExameService } from 'src/app/service/exame.service';
 import { LocalService } from 'src/app/service/local.service';
 import { MedicoService } from 'src/app/service/medico.service';
 import { PacienteService } from 'src/app/service/paciente.service';
 
 @Component({
-  selector: 'app-details-exame',
-  templateUrl: './details-exame.component.html',
-  styleUrls: ['./details-exame.component.scss']
+  selector: 'app-cadastrar-exame',
+  templateUrl: './cadastrar-exame.component.html',
+  styleUrls: ['./cadastrar-exame.component.scss']
 })
-export class DetailsExameComponent implements OnInit {
-
-  idExame: any;
+export class CadastrarExameComponent implements OnInit {
 
   formularioDeExame: FormGroup;
 
@@ -55,7 +50,6 @@ export class DetailsExameComponent implements OnInit {
   }
 
   constructor(
-    private ExameService: ExameService,
     private fb: FormBuilder,
     private activatedRoute :ActivatedRoute,
     private exameService:ExameService ,
@@ -63,12 +57,16 @@ export class DetailsExameComponent implements OnInit {
     private medicoService: MedicoService,
     private localService: LocalService,
     private atendenteService: AtendenteService
-    ) {}
+    ) {
+      this.listaMedicos.push({nome: '',isAtivo: true})
+    this.listaLocais.push({nomeLocal: '',})
+    this.listaAtendentes.push({nome: '',isAtivo: true})
+    }
 
     ngOnInit(): void {
 
-    let codigo: string = this.activatedRoute.snapshot.params['codigo'];
-    this.getByCodigoExame(codigo)
+    // let codigo: string = this.activatedRoute.snapshot.params['codigo'];
+    // this.getByCodigoExame(codigo)
     this.getAllMedicos();
     this.getAllLocais();
     this.getAllAtendentes();
@@ -121,24 +119,24 @@ export class DetailsExameComponent implements OnInit {
   }
 
 
-  atualizarExame(){
-    this.ExameService.putExame(this.examePassado).subscribe((exameData: ExameED) => {
+  cadastrarExame(){
+    this.exameService.postExame(this.examePassado).subscribe((exameData: ExameED) => {
       this.examePassado = exameData;
     },(error) => console.error('deu errado'));
   }
 
 
-  private getByCodigoExame(codigo: string){
-    console.log('codigo: ' + codigo)
-    this.ExameService.findByCodigoExame(codigo).subscribe((data: ExameED) => {
-      this.idExame = data?.id;
-      console.log('voltou pro metodo')
-      console.log('data metodo: ')
-      console.table(data)
-    this.examePassado = data;
-    this.configurarFormulario(this.examePassado);
-    },(error) => console.error('deu errado'));
-  }
+  // private getByCodigoExame(codigo: string){
+  //   console.log('codigo: ' + codigo)
+  //   this.exameService.findByCodigoExame(codigo).subscribe((data: ExameED) => {
+  //     this.idExame = data?.id;
+  //     console.log('voltou pro metodo')
+  //     console.log('data metodo: ')
+  //     console.table(data)
+  //   this.examePassado = data;
+  //   this.configurarFormulario(this.examePassado);
+  //   },(error) => console.error('deu errado'));
+  // }
 
   getAllMedicos(){
     this.medicoService.getAllMedicos().subscribe((resposta: MedicoED[]) => {

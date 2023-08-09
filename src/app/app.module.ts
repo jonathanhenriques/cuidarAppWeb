@@ -12,6 +12,8 @@ import { ExameModule } from './exame/exame.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CadastrarAtendenteComponent } from './atendente/cadastrar-atendente/cadastrar-atendente.component';
+import { AtendenteModule } from './atendente/atendente.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,9 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 
     PacienteModule,
     ExameModule,
+    AtendenteModule,
+    // MedicoModule,
+    // LocalModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

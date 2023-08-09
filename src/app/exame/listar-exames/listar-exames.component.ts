@@ -20,7 +20,24 @@ import { AtendenteService } from 'src/app/service/atendente.service';
 })
 export class ListarExamesComponent implements OnInit {
 
-  private exame: ExameED = new ExameED();
+  private exame: ExameED =  {
+    nomeExame: '',
+    medico: {
+      nome: '',
+      isAtivo: true
+     },
+    local: {
+      nomeLocal: '',
+    },
+    dataExame: '',
+    valor: 0,
+    atendente: {
+      nome: '',
+      isAtivo: true
+    }
+    ,
+    observacao: '',
+  }
   exames: ExameED[] = [];
   private filtro = new ExameFiltro();
   listaPacientes: PacienteED[] = []
@@ -83,7 +100,7 @@ export class ListarExamesComponent implements OnInit {
     this.filtro.pagina = pagina;
 
     this.exameService
-      .getAllWithParameters(listaParametros, this.filtro)
+      .findAllWithParameters(listaParametros, this.filtro)
       .then((dataExames: any) => {
         this.exames = dataExames.exames;
         this.totalItems = dataExames.total;
