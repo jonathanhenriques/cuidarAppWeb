@@ -9,5 +9,5 @@ export const environment = {
 
 
 
-  urlTeste: 'http://localhost:8080',
+  urlTeste: 'https://cuidar.up.railway.app/',
 };

@@ -16,7 +16,8 @@ export class ExameService {
   private examesUrl: string
 
   constructor(private http: HttpClient) {
-    this.examesUrl = `${environment.urlTeste}/exames`
+    // this.examesUrl = `${environment.urlTeste}/exames`
+    this.examesUrl = `https://cuidar.up.railway.app/exames`
   }
 
   findAll(): Observable<any>{
