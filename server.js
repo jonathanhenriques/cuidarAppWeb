@@ -17,6 +17,7 @@ const allowCors = (req, res, next) => {
   next();
 }
 
+
 app.use(allowCors);
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
