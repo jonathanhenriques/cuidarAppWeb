@@ -43,6 +43,15 @@ export class DetailsExameComponent implements OnInit {
      },
     local: {
       nomeLocal: '',
+      endereco: {
+        endRua: '',
+        endNumero: '',
+        endBairro: '',
+        endCidade: '',
+        endTipoResidencia: '',
+        endCep: '',
+        endObservacao: '',
+      }
     },
     dataExame: '',
     valor: 0,

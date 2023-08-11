@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { AtendenteED } from 'src/app/models/AtendenteED';
 import { AtendenteService } from 'src/app/service/atendente.service';
 
@@ -21,31 +22,23 @@ export class CadastrarAtendenteComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private atendenteService: AtendenteService
+    private atendenteService: AtendenteService,
+    private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
 
     this.desabilitarValidacoesDoFormulario
     this.configurarFormulario(this.atendentePassado)
-    this.constroiAtendenteParaEnvio
   }
 
 
   private configurarFormulario(atendente: AtendenteED) {
     this.formularioDeAtendente = this.fb.group({
 
-      nomeAtendente: [atendente.nome],
+      nome: [atendente.nome],
 
-    },[
-      // {
-      //   Validator:Validacoes.comecaComNove
-      // },
-      // {
-      //   validator: Validacoes.maiorDeIdade
-      // }
-    ]
-    );
+    },);
 
   }
 
@@ -53,7 +46,8 @@ export class CadastrarAtendenteComponent implements OnInit {
 
   private constroiAtendenteParaEnvio(){
 
-    this.atendentePassado.nome = this.formularioDeAtendente.value.exame;
+    this.atendentePassado.nome = this.formularioDeAtendente.value.nome;
+    // this.atendentePassado.nome = 'vaness'
 
     // const { dataAtualizacao,dataCadastro, exames, ...pacienteRequest } = this.pacientePassado;
     // this.pacientePassado = { ...pacienteRequest };
@@ -63,10 +57,19 @@ export class CadastrarAtendenteComponent implements OnInit {
 
 
   cadastrarAtendente(){
+    this.constroiAtendenteParaEnvio();
     this.atendenteService.postAtendente(this.atendentePassado).subscribe((atendenteData: AtendenteED) => {
       this.atendentePassado = atendenteData;
+      // this.toastr.success('Mensagem de sucesso', 'Título da notificação');
+      this.recarregarPagina();
     },(error) => console.error('deu errado'));
   }
+
+  recarregarPagina() {
+    window.location.reload();
+  }
+
+
 
 
   novo() {

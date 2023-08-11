@@ -21,6 +21,7 @@ nav ul {
 nav li {
   padding: 5px; /* espaço ao redor dos links */
   padding-left: 1.5rem;
+  padding-top: .5rem;
 }
 
 nav a {
@@ -62,6 +63,7 @@ nav li {
   padding: auto; /* espaço ao redor dos links */
   padding-right: 1.5rem;
 
+
 }
 
 nav a {
@@ -73,6 +75,16 @@ nav a {
 nav a:hover {
   background-color: #555; /* cor de fundo ao passar o mouse sobre os links */
 }
+
+.horizontal-bar {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
+  background-color: #694242; /* Cor de fundo desejada */
+}
+
+
 
 
 }

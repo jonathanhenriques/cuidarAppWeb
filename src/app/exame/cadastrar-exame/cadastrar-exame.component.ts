@@ -36,9 +36,7 @@ export class CadastrarExameComponent implements OnInit {
       nome: '',
       isAtivo: true
      },
-    local: {
-      nomeLocal: '',
-    },
+     local: {} as LocalED,
     dataExame: '',
     valor: 0,
     atendente: {
@@ -59,7 +57,7 @@ export class CadastrarExameComponent implements OnInit {
     private atendenteService: AtendenteService
     ) {
       this.listaMedicos.push({nome: '',isAtivo: true})
-    this.listaLocais.push({nomeLocal: '',})
+    this.listaLocais.push(this.examePassado.local)
     this.listaAtendentes.push({nome: '',isAtivo: true})
     }
 

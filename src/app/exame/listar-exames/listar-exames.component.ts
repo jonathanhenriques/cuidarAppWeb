@@ -28,6 +28,15 @@ export class ListarExamesComponent implements OnInit {
      },
     local: {
       nomeLocal: '',
+      endereco:  {
+        endRua: '',
+        endNumero: '',
+        endBairro: '',
+        endCidade: '',
+        endTipoResidencia: '',
+        endCep: '',
+        endObservacao: '',
+      }
     },
     dataExame: '',
     valor: 0,
@@ -39,7 +48,11 @@ export class ListarExamesComponent implements OnInit {
     observacao: '',
   }
   exames: ExameED[] = [];
-  private filtro = new ExameFiltro();
+  private filtro = {
+    isAtivo: true,
+    pagina: 0,
+    itensPorPagina: 5,
+  }
   listaPacientes: PacienteED[] = []
   listaMedicos: MedicoED[] = [];
   listaLocais: LocalED[] = [];

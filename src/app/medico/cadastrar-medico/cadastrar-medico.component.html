@@ -1,0 +1,31 @@
+<div class="container">
+  <h1 class="titulo">Cadastrar Médico</h1>
+
+  <form
+    class="formulario"
+    [formGroup]="formularioDeMedico"
+    (keydown)="onKeyDown($event)"
+    (ngSubmit)="cadastrarMedico()"
+  >
+    <div class="linha">
+      <div class="input-box">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" formControlName="nome" placeholder="nome..." />
+      </div>
+
+      <!-- <div class="input-box">
+        <label for="valorExame">Valor do Exame:</label>
+        <input type="text" id="valorExame" formControlName="valorExame" />
+      </div> -->
+    </div>
+
+
+
+    <div class="cadastrar-box">
+      <button class="btn btn-success" type="submit">Cadastrar</button>
+    </div>
+  </form>
+</div>
+
+<div>{{ formularioDeMedico.value | json }}</div>
+<div>{{ formularioDeMedico.valid | json }}</div>

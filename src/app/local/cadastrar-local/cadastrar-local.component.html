@@ -1,0 +1,84 @@
+<div class="container">
+  <h1 class="titulo">Cadastrar Local</h1>
+
+  <form
+    class="formulario"
+    [formGroup]="formularioDeLocal"
+    (keydown)="onKeyDown($event)"
+    (ngSubmit)="cadastrarLocal()"
+  >
+    <div class="linha">
+      <div class="input-box">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" formControlName="nome" placeholder="nome..." />
+      </div>
+
+      <!-- <div class="input-box">
+        <label for="valorExame">Valor do Exame:</label>
+        <input type="text" id="valorExame" formControlName="valorExame" />
+      </div> -->
+    </div>
+
+    <div class="endereco-box">
+      <hr />
+      <div class="identificador">Endereço</div>
+      <div class="linha">
+        <div class="input-box">
+          <label for="endRua">Rua:</label>
+          <input type="text" id="endRua" formControlName="endRua" />
+        </div>
+        <div class="input-box">
+          <label for="endNumero">Número:</label>
+          <input type="text" id="endNumero" formControlName="endNumero" />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="endBairro">Bairro:</label>
+          <input type="text" id="endBairro" formControlName="endBairro" />
+        </div>
+        <div class="input-box">
+          <label for="endCidade">Cidade:</label>
+          <input type="text" id="endCidade" formControlName="endCidade" />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="endCep">CEP:</label>
+          <input type="text" id="endCep" formControlName="endCep" />
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="input-box">
+          <label for="endTipoResidencia">Tipo de Residência:</label>
+          <select id="endTipoResidencia" formControlName="endTipoResidencia">
+            <option selected>-Selecione-</option>
+            <option value="CASA">Casa</option>
+            <option value="APARTAMENTO">Apartamento</option>
+            <option value="OUTRO">Outro</option>
+          </select>
+        </div>
+        <div class="input-box">
+          <label for="endObservacao">Observação:</label>
+          <input
+            type="text"
+            id="endObservacao"
+            formControlName="endObservacao"
+          />
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="cadastrar-box">
+      <button class="btn btn-success" type="submit">Cadastrar</button>
+    </div>
+  </form>
+</div>
+
+<div>{{ formularioDeLocal.value | json }}</div>
+<div>{{ formularioDeLocal.valid | json }}</div>

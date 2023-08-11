@@ -1,6 +1,6 @@
 
-export class ExameFiltro {
-  ativo?: boolean
-  pagina: number = 0;
-  itensPorPagina: number = 5;
+export interface ExameFiltro {
+  isAtivo: boolean
+  pagina: number;
+  itensPorPagina: number;
 }

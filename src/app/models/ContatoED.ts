@@ -5,11 +5,4 @@ export interface ContatoED {
   contInstagram: string;
   email: string;
 
-  // constructor() {
-  //   this.celular = '';
-  //   this.telefone = '';
-  //   this.contFacebook = '';
-  //   this.contInstagram = '';
-  //   this.email = '';
-  // }
 }

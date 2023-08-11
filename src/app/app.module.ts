@@ -7,13 +7,13 @@ import { SidebarComponent } from './componentes/sidebar/sidebar.component';
 import { PacienteModule } from './paciente/paciente.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MensagemComponent } from './shared/mensagem/mensagem.component';
-import { ListarExamesComponent } from './exame/listar-exames/listar-exames.component';
 import { ExameModule } from './exame/exame.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CadastrarAtendenteComponent } from './atendente/cadastrar-atendente/cadastrar-atendente.component';
 import { AtendenteModule } from './atendente/atendente.module';
+import { MedicoModule } from './medico/medico.module';
+import { LocalModule } from './local/local.module';
 
 @NgModule({
   declarations: [
@@ -41,8 +41,8 @@ import { AtendenteModule } from './atendente/atendente.module';
     PacienteModule,
     ExameModule,
     AtendenteModule,
-    // MedicoModule,
-    // LocalModule,
+    MedicoModule,
+    LocalModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

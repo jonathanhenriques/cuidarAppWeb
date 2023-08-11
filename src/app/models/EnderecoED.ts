@@ -7,13 +7,4 @@ export interface EnderecoED {
   endCep: string;
   endObservacao: string;
 
-  // constructor() {
-  //   this.endRua = '';
-  //   this.endNumero = '';
-  //   this.endBairro = '';
-  //   this.endCidade = '';
-  //   this.endTipoResidencia = '';
-  //   this.endCep = '';
-  //   this.endObservacao = '';
-  // }
 }

@@ -1,0 +1,144 @@
+<div class="container">
+  <div class="parametros-selecao">
+    <h6 class="titulo">Para filtrar informe:</h6>
+    <!-- <div class="parametros-selecao-caixa">
+      <label for="codigo">Código:</label>
+      <input
+        name="codigo"
+        type="text"
+        [(ngModel)]="codigo"
+        placeholder="Código..."
+      />
+    </div> -->
+
+    <div class="parametros-selecao-caixa">
+      <label for="medicos">Nome:</label>
+      <input
+        type="text"
+        name="nome"
+        [(ngModel)]="nomeLocalFiltroPesquisa"
+        placeholder="nome..."
+      />
+    </div>
+
+    <div class="parametros-selecao-caixa">
+      <label for="medicos">Rua:</label>
+      <input
+        type="text"
+        name="rua"
+        [(ngModel)]="endRuaFiltroPesquisa"
+        placeholder="Rua..."
+      />
+    </div>
+
+    <div class="parametros-selecao-caixa">
+      <label for="medicos">CEP:</label>
+      <input
+        type="text"
+        name="cep"
+        [(ngModel)]="endCepFiltroPesquisa"
+        placeholder="Cep..."
+      />
+    </div>
+
+    <div class="parametros-selecao-caixa">
+      <label for="medicos">Cidade:</label>
+      <input
+        type="text"
+        name="cidade"
+        [(ngModel)]="endCidadeFiltroPesquisa"
+        placeholder="Cidade..."
+      />
+    </div>
+
+    <div class="parametros-selecao-caixa">
+      <label for="medicos">Bairro:</label>
+      <input
+        type="text"
+        name="bairro"
+        [(ngModel)]="endBairroFiltroPesquisa"
+        placeholder="Bairro..."
+      />
+    </div>
+
+    <div class="parametros-selecao-caixa">
+      <label for="isAtivo">Tipo de Residência:</label>
+      <select
+        name="tipoResidencia"
+        id="tipoResidencia"
+        [(ngModel)]="tipoResidenciaLocalSelecionado"
+      >
+      <option selected value="">Todos</option>
+        <option value="CASA">Casa</option>
+        <option value="APARTAMENTO">Apartamento</option>
+        <option value="OUTRO">Outro</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="botao-pesquisar btn btn-info" (click)="listarLocais(0)">Pesquisar</button>
+
+</div>
+
+
+  <h1 class="titulo">Todos os Locais</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Rua</th>
+        <th scope="col">Bairro</th>
+        <th scope="col">Cep</th>
+        <th scope="col">Tipo de Residência</th>
+        <!-- <th scope="col">Data de Nascimento</th>
+        <th scope="col">Idade</th>
+        <th scope="col">Contato</th> -->
+        <!-- <th scope="col">Desativar</th> -->
+        <!-- <th scope="col">Apagar</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let local of listaLocais">
+        <th scope="row">{{ local.id }}</th>
+        <th scope="row">{{ local.nomeLocal }}</th>
+        <th scope="row">{{ local.endereco?.endRua }}</th>
+        <th scope="row">{{ local.endereco?.endBairro }}</th>
+        <th scope="row">{{ local.endereco?.endCep }}</th>
+        <th scope="row">{{ local.endereco?.endTipoResidencia }}</th>
+        <!-- <td [ngClass]="{'tachado': !local.isAtivo}">{{ local.nome }}</td> -->
+        <!-- <td>{{ local.isAtivo }}</td> -->
+        <!-- <td>{{ atendentes.dataNasc | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ atendentes.idade }}</td>
+        <td>{{ atendentes.contato.celular }}</td> -->
+        <!-- <td><button class="btn btn-danger" (click)="desativarMedico(local.id)">Desativar</button></td> -->
+        <!-- <td><button class="btn btn-warning" *ngIf="!local.isAtivo" (click)="ativarMedico(local.id)">Ativar</button></td> -->
+      </tr>
+    </tbody>
+  </table>
+
+<div>
+  <ngb-pagination
+  [collectionSize]="totalItems"
+  [(page)]="currentPage"
+  [pageSize]="itemsPerPage"
+  (pageChange)="pageChanged($event)">
+</ngb-pagination>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- </div> -->

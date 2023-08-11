@@ -65,8 +65,8 @@ export class PacienteService {
       .set('size', filtro.itensPorPagina.toString()); // Converte para string
 
 
-    if (filtro.ativo) {
-      params = params.set('descricao', filtro.ativo);
+    if (filtro.isAtivo) {
+      params = params.set('descricao', filtro.isAtivo);
     }
 
     return firstValueFrom(this.http.get(`${this.pacientesUrl}`, { params }))
@@ -82,9 +82,9 @@ export class PacienteService {
     });
   }
 
-  findAllPacientesAtivos(ativo: boolean): Observable<PacienteED[]> {
+  findAllPacientesAtivos(isAtivo: boolean): Observable<PacienteED[]> {
     return this.http.get<PacienteED[]>(
-    this.pacientesUrl + `/isAtivo/${ativo}` /*this.token*/
+    this.pacientesUrl + `/isAtivo/${isAtivo}` /*this.token*/
     );
   }
 

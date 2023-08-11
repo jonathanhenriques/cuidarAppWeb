@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="parametros-selecao">
+    <h6 class="titulo">Para filtrar informe:</h6>
+    <!-- <div class="parametros-selecao-caixa">
+      <label for="codigo">Código:</label>
+      <input
+        name="codigo"
+        type="text"
+        [(ngModel)]="codigo"
+        placeholder="Código..."
+      />
+    </div> -->
+
+    <div class="parametros-selecao-caixa">
+      <label for="medicos">Nome:</label>
+      <input
+        type="text"
+        name="nome"
+        [(ngModel)]="nomeAtendenteFiltroPesquisa"
+        placeholder="nome..."
+      />
+    </div>
+
+    <div class="parametros-selecao-caixa">
+      <label for="isAtivo">Situação:</label>
+      <select
+        name="isAtivo"
+        id="isAtivo"
+        [(ngModel)]="situacaoAtendenteSelecionado"
+      >
+        <option selected value="">Todos</option>
+        <option value="true">Ativo</option>
+        <option value="false">Inativo</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="botao-pesquisar btn btn-info" (click)="listarAtendentes(0)">Pesquisar</button>
+
+</div>
+
+
+  <h1 class="titulo">Todos os Atendentes</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Ativo</th>
+        <!-- <th scope="col">Data de Nascimento</th>
+        <th scope="col">Idade</th>
+        <th scope="col">Contato</th> -->
+        <th scope="col">Desativar</th>
+        <!-- <th scope="col">Apagar</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let atendente of listaAtendentes">
+        <th scope="row">{{ atendente.id }}</th>
+        <td [ngClass]="{'tachado': !atendente.isAtivo}">{{ atendente.nome }}</td>
+        <td>{{ atendente.isAtivo }}</td>
+        <!-- <td>{{ atendentes.dataNasc | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ atendentes.idade }}</td>
+        <td>{{ atendentes.contato.celular }}</td> -->
+        <td><button class="btn btn-danger" (click)="desativarAtendente(atendente.id)">Desativar</button></td>
+        <td><button class="btn btn-warning" *ngIf="!atendente.isAtivo" (click)="ativarAtendente(atendente.id)">Ativar</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+<div>
+  <ngb-pagination
+  [collectionSize]="totalItems"
+  [(page)]="currentPage"
+  [pageSize]="itemsPerPage"
+  (pageChange)="pageChanged($event)">
+</ngb-pagination>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- </div> -->

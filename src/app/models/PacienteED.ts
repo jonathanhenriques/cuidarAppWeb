@@ -21,7 +21,7 @@ export interface PacienteED {
   convenio: boolean;
   observacao: string;
   isAceite: boolean; //substitui assinatura
-  exames?: ExameED[] | null;
+  exames?: ExameED[];
   indicacao: string;
   isAtivo: boolean;
   dataCadastro?: Date;
