@@ -11,6 +11,8 @@ import { LocalService } from 'src/app/service/local.service';
 import { PacienteED } from 'src/app/models/PacienteED';
 import { AtendenteED } from 'src/app/models/AtendenteED';
 import { AtendenteService } from 'src/app/service/atendente.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 
 @Component({
@@ -20,7 +22,7 @@ import { AtendenteService } from 'src/app/service/atendente.service';
 })
 export class ListarExamesComponent implements OnInit {
 
-  @ViewChild('ParaImprimir', { static: false }) paraImprimir: ElementRef;
+  @ViewChild('content', { static: false }) paraImprimir: ElementRef;
 
   private exame: ExameED =  {
     id: 0,
@@ -112,7 +114,7 @@ export class ListarExamesComponent implements OnInit {
       pacienteId: this.pacienteId,
       pacienteRG: this.pacienteRG,
       atendenteId: this.atendenteSelecionado,
-      dataExame: this.dataExameSelecionado,
+      dataExame: this.dataExameSelecionado.toString(),
       nomeExame: this.nomeExameSelecionado,
       valor: this.valorSelecionado,
       isAtivo: this.situacaoExameSelecionado,
@@ -245,6 +247,28 @@ cancelarExame(codigo: string | undefined): void {
 //   // Salva o PDF
 //   doc.save('seu-arquivo.pdf');
 // }
+
+
+public printTable() {
+  const doc = new jsPDF('p', 'pt', 'a4');
+
+  const tableCellStyle = {
+    style: 'table td, table th {background-color: white; border: 1px solid black; padding: 5px;}',
+  };
+
+  const styles = {
+    fontSize: 8, // Tamanho do conteúdo das células da tabela
+    css: tableCellStyle,
+  };
+
+  autoTable(doc, {
+    html: this.paraImprimir.nativeElement, // Use o seletor correto aqui
+    styles,
+    startY: 40,
+  });
+
+  doc.output("dataurlnewwindow");
+}
 
 
 

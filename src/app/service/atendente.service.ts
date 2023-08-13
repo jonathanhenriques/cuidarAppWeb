@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { AtendenteED } from '../models/AtendenteED';
 import { AtendenteFiltro } from '../models/filtros/AtendenteFiltro';
 import { ParametroAtendenteRequest } from '../models/filtros/ParametroAtendenteRequest';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

@@ -7,7 +7,7 @@ export interface ParametroExameRequest {
   atendenteId?: number;
   nomeExame?: string;
   localId?: number;
-  dataExame?: Date
+  dataExame?: string;
   valor?: number;
   isAtivo?: boolean;
 

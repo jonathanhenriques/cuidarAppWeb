@@ -9,6 +9,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import jsPDF from 'jspdf';
 import { EnderecoED } from 'src/app/models/EnderecoED';
 import { ExameED } from 'src/app/models/ExameED';
 import { PacienteED } from 'src/app/models/PacienteED';
@@ -404,5 +405,51 @@ private configurarFormulario(paciente: PacienteED, endereco: EnderecoED, contato
       event.preventDefault(); // Evita o comportamento padrão de enviar o formulário
     }
   }
+
+
+
+  gerarPDF() {
+    let documento = new jsPDF('p', 'mm', 'a4');
+    documento.setFont("Courier");
+    // documento.setFontStyle("bold");
+    documento.setFontSize(20);
+    documento.text("Ficha do Paciente", 65, 15);
+
+    documento.setFillColor(50,50,50);
+    documento.rect(10, 20, 30, 8, "FD");
+    documento.rect(10, 28, 30, 8, "FD");
+    documento.rect(10, 36, 30, 8, "FD");
+    documento.rect(10, 36, 30, 8, "FD");
+    // documento.rect(40, 20, 160, 8, "s");
+    // documento.rect(40, 28, 160, 8, "s");
+    // documento.rect(40, 36, 160, 8, "s");
+
+    documento.setFontSize(12);
+    documento.setTextColor(255, 255, 255);
+    documento.text("Código", 12, 25);
+    documento.text("RG", 12, 33);
+    documento.text("Paciente", 12, 41);
+    documento.setTextColor(0, 0, 0);
+    documento.text("Endereço", 12, 49);
+    documento.text("Estado:", 12, 57);
+    documento.text("Nascimento:", 12, 65);
+    documento.text("Profissão:", 12, 73);
+    documento.text("Contato:", 12, 81);
+
+    // documento.setFontStyle("normal");
+    documento.setTextColor(0, 0, 0);
+    documento.text("001", 42, 25);
+    documento.text(this.pacientePassado.rg.toString(), 42, 33);
+    documento.text(this.pacientePassado.nome.toString(), 42, 41);
+    documento.setTextColor(0, 0, 0);
+    documento.text(this.pacientePassado.endereco.endRua.toString() + ', ' + this.pacientePassado.endereco.endBairro.toString()+ ', ' +  this.pacientePassado.endereco.endCidade.toString(), 42, 49);
+    documento.text(this.pacientePassado.estadoCivil.toString(), 42, 57);
+    documento.text(this.pacientePassado.dataNasc.toString(), 42, 65);
+    documento.text(this.pacientePassado.profissao.toString(), 42, 73);
+    documento.text(this.pacientePassado.contato.celular.toString(), 42, 81);
+
+    documento.output("dataurlnewwindow");
+  }
+
 
 }

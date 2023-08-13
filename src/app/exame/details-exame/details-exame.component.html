@@ -1,6 +1,8 @@
 <div class="container">
   <h1 class="titulo">Detalhes Exame</h1>
 
+  <button (click)="gerarPDF()" >Imprimir</button>
+
   <form
     class="formulario"
     [formGroup]="formularioDeExame"
@@ -10,79 +12,69 @@
     <div class="linha">
       <div class="input-box">
         <label for="exame">Exame:</label>
-        <input type="text" id="exame" formControlName="exame" />
+        <input #nomeExame type="text" id="exame" formControlName="exame" />
       </div>
       <div class="input-box">
         <label for="valorExame">Valor do Exame:</label>
-        <input type="text" id="valorExame" formControlName="valorExame" />
+        <input #valorExame type="text" id="valorExame" formControlName="valorExame" />
       </div>
     </div>
 
     <div class="linha">
       <div class="input-box">
         <div class="parametros-selecao-caixa">
-          <label for="local">Local:</label>
-          <select
-            name="locais[]"
-            id="locais"
-            formControlName="local"
-            [(ngModel)]="localSelecionado"
-          >
-            <option value="">>Selecione></option>
-            <!-- Opção padrão -->
-            <option *ngFor="let local of listaLocais" [value]="local.id">
-              {{ local.nomeLocal }}
-            </option>
-          </select>
+          <label for="localExame">Local:</label>
+          <input
+            name="localExame"
+            id="localExame"
+            formControlName="localExame"
+            [(ngModel)]="localExame"
+          />
         </div>
       </div>
+    </div>
 
-      <div class="input-box">
-        <label for="indicacao">Indicação:</label>
-        <input type="text" id="indicacao" formControlName="indicacao" />
-      </div>
+
+    <div class="input-box">
+      <label for="paciente">Paciente:</label>
+      <input
+      #observacaoExame
+        type="text"
+        id="paciente"
+        formControlName="paciente"
+        [(ngModel)]="pacienteExame"
+      />
     </div>
 
     <div class="input-box">
       <div class="parametros-selecao-caixa">
         <label for="atendente">Atendente:</label>
-        <select
-          name="atendentes[]"
-          id="atendentes"
-          formControlName="atendente"
-          [(ngModel)]="atendenteSelecionado"
-        >
-          <option selected value="-1">>Selecione></option>
-          <option
-            *ngFor="let atendente of listaAtendentes"
-            [value]="atendente.id"
-          >
-            {{ atendente.nome }}
-          </option>
-        </select>
+        <input
+          name="atendente"
+          id="atendente"
+          formControlName="atendenteExame"
+          [(ngModel)]="atendenteExame"
+        />
       </div>
     </div>
 
     <div class="input-box">
       <div class="parametros-selecao-caixa">
-        <label for="medicoAtendente">Médico Atendente:</label>
-        <select
-          name="medicoAtendente"
-          id="medicoAtendente"
-          formControlName="medicoAtendente"
-          [(ngModel)]="medicoSelecionado"
-        >
-          <option value="">>Selecione></option>
-          <option *ngFor="let medico of listaMedicos" [value]="medico?.id">
-            {{ medico.nome }}
-          </option>
-        </select>
+        <label for="medico">Médico Atendente:</label>
+        <input
+          name="medico"
+          id="medico"
+          formControlName="medicoExame"
+          [(ngModel)]="medicoExame"
+        />
+
       </div>
     </div>
 
     <div class="input-box">
       <label for="observacaoExame">Observação:</label>
       <input
+      #observacaoExame
         type="text"
         id="observacaoExame"
         formControlName="observacaoExame"
@@ -95,5 +87,5 @@
   </form>
 </div>
 
-<div>{{ formularioDeExame.value | json }}</div>
-<div>{{ formularioDeExame.valid | json }}</div>
+<!-- <div>{{ formularioDeExame.value | json }}</div>
+<div>{{ formularioDeExame.valid | json }}</div> -->

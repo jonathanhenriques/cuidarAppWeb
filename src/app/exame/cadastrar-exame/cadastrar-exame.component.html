@@ -1,5 +1,6 @@
 <div class="container">
   <h1 class="titulo">Cadastrar Exame</h1>
+  <!-- <button (click)="gerarPDF()" >Imprimir</button> -->
 
   <form
     class="formulario"
@@ -10,7 +11,7 @@
     <div class="linha">
       <div class="input-box">
         <label for="exame">Exame:</label>
-        <input type="text" id="exame" formControlName="exame" />
+        <input #nomeExame type="text" id="exame" formControlName="exame" />
       </div>
 
       <div class="input-box">
@@ -26,6 +27,7 @@
         <div class="parametros-selecao-caixa">
           <label for="local">Local:</label>
           <select
+            #localNome
             name="local"
             id="local"
             formControlName="local"
@@ -81,12 +83,13 @@
 
     <div class="input-box">
       <label for="valorExame">Valor do Exame:</label>
-      <input type="text" id="valorExame" formControlName="valorExame" />
+      <input #valorExame type="text" id="valorExame" formControlName="valorExame" />
     </div>
 
     <div class="input-box">
       <label for="observacaoExame">Observação:</label>
       <input
+      #observacaoExame
         type="text"
         id="observacaoExame"
         formControlName="observacaoExame"
@@ -99,5 +102,5 @@
   </form>
 </div>
 
-<div>{{ formularioDeExame.value | json }}</div>
-<div>{{ formularioDeExame.valid | json }}</div>
+<!-- <div>{{ formularioDeExame.value | json }}</div>
+<div>{{ formularioDeExame.valid | json }}</div> -->

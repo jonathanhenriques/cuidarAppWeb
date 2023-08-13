@@ -1,6 +1,8 @@
 import { ViewChild, ElementRef } from '@angular/core';
 // import { DialogExame } from 'src/app/shared/dialog-util/dialog-exame.component';
 import { Component, OnInit } from '@angular/core';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'
 import { ContatoED } from 'src/app/models/ContatoED';
 import { EnderecoED } from 'src/app/models/EnderecoED';
 import { PacienteED } from 'src/app/models/PacienteED';
@@ -116,14 +118,43 @@ export class ListarPacientesComponent implements OnInit {
   }
 
 
-  // printSimplePDF(){
-  //   let pdf = new jsPDF('p',  'pt',   'a4');
-  //   pdf.html(this.el.nativeElement, {
-  //     callback: (pdf) => {
-  //       pdf.save('testePDF.pdf');
-  //     }
-  //   })
-  // }
+  printSimplePDF(){
+    let pdf = new jsPDF('p',  'pt',   'a4');
+    pdf.html(this.el.nativeElement, {
+      callback: (pdf) => {
+        pdf.save('testePDF.pdf');
+      }
+    })
+  }
+
+
+  public printTable() {
+    const doc = new jsPDF('p', 'pt', 'a4');
+
+    const tableCellStyle = {
+      style: 'table td, table th {background-color: white; border: 1px solid black; padding: 5px;}',
+    };
+
+    const styles = {
+      fontSize: 8, // Tamanho do conteúdo das células da tabela
+      css: tableCellStyle,
+    };
+
+    autoTable(doc, {
+      html: this.el.nativeElement, // Use o seletor correto aqui
+      styles,
+      startY: 40,
+    });
+
+    doc.output("dataurlnewwindow");
+  }
+
+
+
+
+
+
+
 
 
 
