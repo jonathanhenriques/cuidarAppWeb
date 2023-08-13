@@ -114,7 +114,7 @@ export class ListarExamesComponent implements OnInit {
       pacienteId: this.pacienteId,
       pacienteRG: this.pacienteRG,
       atendenteId: this.atendenteSelecionado,
-      dataExame: this.dataExameSelecionado.toString(),
+      dataExame: this.dataExameSelecionado?.toString(),
       nomeExame: this.nomeExameSelecionado,
       valor: this.valorSelecionado,
       isAtivo: this.situacaoExameSelecionado,
