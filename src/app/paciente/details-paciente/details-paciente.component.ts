@@ -9,7 +9,6 @@ import {
   FormControl,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { EnderecoED } from 'src/app/models/EnderecoED';
 import { ExameED } from 'src/app/models/ExameED';
 import { PacienteED } from 'src/app/models/PacienteED';

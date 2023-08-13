@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { MedicoED } from 'src/app/models/MedicoED';
 import { MedicoFiltro } from 'src/app/models/filtros/MedicoFiltro';
 import { ParametroMedicoRequest } from 'src/app/models/filtros/ParametroMedicoRequest';
@@ -30,7 +29,6 @@ export class ListarMedicoComponent implements OnInit {
 
   constructor(
     private medicoService: MedicoService,
-    private toastr: ToastrService,
     ){}
 
   ngOnInit(): void {

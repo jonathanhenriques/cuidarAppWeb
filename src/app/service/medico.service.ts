@@ -16,11 +16,23 @@ export class MedicoService {
     this.medicosUrl = `${environment.urlTeste}/medicos`;
   }
 
-  getAllMedicos(): Observable<any> {
-    return this.http
-      .get<any>(`${this.medicosUrl}`)
-      .pipe(tap((response) => console.log(response)));
+
+  getAllMedicos(): Promise<any>{
+    return firstValueFrom(this.http.get(`${this.medicosUrl}`))
+    .then((response: any) => {
+      const medicos = response['content'];
+
+      const resultado = {
+        medicos,
+        total: response['totalElements']
+      }
+
+      return resultado;
+    });
+
   }
+
+
 
   findAllWithParameters(
     listaParametros: ParametroMedicoRequest,

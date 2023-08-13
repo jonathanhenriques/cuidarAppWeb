@@ -1,7 +1,6 @@
 import { ExameED } from 'src/app/models/ExameED';
 import { ExameService } from './../../service/exame.service';
-import { Component, OnInit } from '@angular/core';
-import { ExameFiltro } from 'src/app/models/filtros/ExameFiltro';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { MedicoService } from 'src/app/service/medico.service';
 import { PacienteService } from 'src/app/service/paciente.service';
@@ -13,6 +12,7 @@ import { PacienteED } from 'src/app/models/PacienteED';
 import { AtendenteED } from 'src/app/models/AtendenteED';
 import { AtendenteService } from 'src/app/service/atendente.service';
 
+
 @Component({
   selector: 'app-listar-exames',
   templateUrl: './listar-exames.component.html',
@@ -20,7 +20,11 @@ import { AtendenteService } from 'src/app/service/atendente.service';
 })
 export class ListarExamesComponent implements OnInit {
 
+  @ViewChild('ParaImprimir', { static: false }) paraImprimir: ElementRef;
+
   private exame: ExameED =  {
+    id: 0,
+    codigo: '',
     nomeExame: '',
     medico: {
       nome: '',
@@ -46,6 +50,7 @@ export class ListarExamesComponent implements OnInit {
     }
     ,
     observacao: '',
+    isAtivo: true
   }
   exames: ExameED[] = [];
   private filtro = {
@@ -74,12 +79,15 @@ export class ListarExamesComponent implements OnInit {
   totalItems = 0;
   itemsPerPage = 5;
 
+  displayReport = false;
+  examesReport = [];
+
   pacienteRetornado: PacienteED
 
   private nomeExame: string;
 
   constructor(
-    private exameService:ExameService ,
+    private exameService: ExameService ,
     private pacienteService: PacienteService,
     private medicoService: MedicoService,
     private localService: LocalService,
@@ -132,9 +140,31 @@ export class ListarExamesComponent implements OnInit {
     this.listarExames(this.currentPage-1);
   }
 
+  async _carregarExamesReport(): Promise<any[]>{
+    return this.exameService.findAll()
+    .toPromise()
+    .catch(error =>{
+      console.log(error);
+    })
+  }
+
+  async carregarExamesReport(){
+    this.examesReport = [];
+    for (let page = 0; page < Math.round(this.totalItems / 5); page++) {
+      const data = await this._carregarExamesReport() as any;
+      this.examesReport = [...this.examesReport ];
+  };
+  this.displayReport = true;
+    setTimeout(() => {
+        this.displayReport = false;
+    }, 1000);
+  }
+
+
+
   getAllMedicos(){
-    this.medicoService.getAllMedicos().subscribe((resposta: MedicoED[]) => {
-      this.listaMedicos = resposta
+    this.medicoService.getAllMedicos().then((resposta: any) => {
+      this.listaMedicos = resposta.medicos
       console.table(resposta)
     })
   }
@@ -173,6 +203,48 @@ export class ListarExamesComponent implements OnInit {
 }
 
 
+
+ativarExame(codigo: string | undefined): void {
+  if(codigo != null && codigo != undefined){
+    this.exameService.ativarExame(codigo).subscribe(() => {
+      console.log('Exame ativado com sucesso!')
+      this.recarregarPagina();
+    }, (error) => {
+      console.log('Deu errado')
+    })
+  }
+}
+
+
+cancelarExame(codigo: string | undefined): void {
+ if(codigo != null && codigo != undefined){
+  this.exameService.cancelarExame(codigo).subscribe(() => {
+    console.log('Exame cancelado com sucesso!')
+    this.recarregarPagina();
+  }, (error) => {
+    console.log('Deu errado')
+  })
+}
+ }
+
+ recarregarPagina() {
+  window.location.reload();
+}
+
+
+// async gerarPDF() {
+//   const doc = new jsPDF();
+//   const content = this.paraImprimir.nativeElement;
+
+//   // Renderiza o conteúdo HTML como uma imagem usando dom-to-image
+//   // const image = await domtoimage.toPng(content);
+
+//   // Adiciona a imagem ao PDF
+//   // doc.addImage(image, 'PNG', 15, 10, 180, 0);
+
+//   // Salva o PDF
+//   doc.save('seu-arquivo.pdf');
+// }
 
 
 

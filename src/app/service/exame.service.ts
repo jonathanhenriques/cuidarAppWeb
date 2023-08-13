@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, firstValueFrom, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -14,6 +14,10 @@ import { ExameED } from '../models/ExameED';
 export class ExameService {
 
   private examesUrl: string
+
+  private options = {
+    headers: new HttpHeaders().set('Content-Type', 'application/json')
+  };
 
   constructor(private http: HttpClient) {
     this.examesUrl = `${environment.urlTeste}/exames`
@@ -107,6 +111,19 @@ export class ExameService {
     const url = `${this.examesUrl}/${codigoExame}`;
 
     return this.http.get<ExameED>(url).pipe(tap((retorno: any) => console.log('retorno: ' + retorno)))
+  }
+
+
+
+  ativarExame(codigo: string): Observable<any>{
+    const url = `${this.examesUrl}/${codigo}/ativar`;
+    return this.http.delete<any>(url)
+  }
+
+
+  cancelarExame(codigo: string): Observable<any>{
+    const url = `${this.examesUrl}/${codigo}/inativar`;
+    return this.http.delete<any>(url)
   }
 
 

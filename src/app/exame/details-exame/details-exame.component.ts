@@ -61,6 +61,7 @@ export class DetailsExameComponent implements OnInit {
     }
     ,
     observacao: '',
+    isAtivo: true
   }
 
   constructor(
@@ -150,8 +151,8 @@ export class DetailsExameComponent implements OnInit {
   }
 
   getAllMedicos(){
-    this.medicoService.getAllMedicos().subscribe((resposta: MedicoED[]) => {
-      this.listaMedicos = resposta
+    this.medicoService.getAllMedicos().then((resposta: any) => {
+      this.listaMedicos = resposta.medicos
       console.table(resposta)
     })
   }

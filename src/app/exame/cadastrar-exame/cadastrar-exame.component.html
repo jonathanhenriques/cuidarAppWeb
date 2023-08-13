@@ -12,10 +12,13 @@
         <label for="exame">Exame:</label>
         <input type="text" id="exame" formControlName="exame" />
       </div>
+
       <div class="input-box">
-        <label for="valorExame">Valor do Exame:</label>
-        <input type="text" id="valorExame" formControlName="valorExame" />
+        <label for="pacienteNome">Paciente:</label>
+        <input type="text" id="pacienteNome" formControlName="pacienteNome" [(ngModel)]="pacientePassado.nome"/>
       </div>
+
+
     </div>
 
     <div class="linha">
@@ -23,36 +26,31 @@
         <div class="parametros-selecao-caixa">
           <label for="local">Local:</label>
           <select
-            name="locais[]"
-            id="locais"
+            name="local"
+            id="local"
             formControlName="local"
             [(ngModel)]="localSelecionado"
           >
-            <option value="">>Selecione></option>
-            <!-- Opção padrão -->
-            <option *ngFor="let local of listaLocais" [value]="local.id">
+          <option selected [ngValue]="null" disabled>Selecione</option>
+            <option *ngFor="let local of listaLocais" [ngValue]="local.id">
               {{ local.nomeLocal }}
             </option>
           </select>
         </div>
       </div>
 
-      <div class="input-box">
-        <label for="indicacao">Indicação:</label>
-        <input type="text" id="indicacao" formControlName="indicacao" />
-      </div>
     </div>
 
     <div class="input-box">
       <div class="parametros-selecao-caixa">
         <label for="atendente">Atendente:</label>
         <select
-          name="atendentes[]"
-          id="atendentes"
+          name="atendente"
+          id="atendente"
           formControlName="atendente"
           [(ngModel)]="atendenteSelecionado"
         >
-          <option selected value="-1">>Selecione></option>
+          <option selected  value="" >>Selecione></option>
           <option
             *ngFor="let atendente of listaAtendentes"
             [value]="atendente.id"
@@ -72,12 +70,18 @@
           formControlName="medicoAtendente"
           [(ngModel)]="medicoSelecionado"
         >
-          <option value="">>Selecione></option>
+          <option selected value="">>Selecione></option>
           <option *ngFor="let medico of listaMedicos" [value]="medico?.id">
-            {{ medico.nome }}
+            {{ medico.nome }} |
           </option>
         </select>
       </div>
+
+    </div>
+
+    <div class="input-box">
+      <label for="valorExame">Valor do Exame:</label>
+      <input type="text" id="valorExame" formControlName="valorExame" />
     </div>
 
     <div class="input-box">

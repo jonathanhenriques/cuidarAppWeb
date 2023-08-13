@@ -33,7 +33,6 @@ export class PacienteService {
   }
 
   findByCodigoPaciente(codigoPaciente: string): Observable<any> {
-    console.log('codigoPaciente: ' + codigoPaciente)
     const url = `${this.pacientesUrl}/${codigoPaciente}`;
 
     return this.http.get<PacienteED>(url).pipe(tap((retorno: any) => console.log('retorno: ' + retorno)))
@@ -46,10 +45,6 @@ export class PacienteService {
 
 
   postPaciente(paciente: any): Observable<any> {
-    console.log("================================")
-    console.log("corpo da req: ")
-    console.log(JSON.stringify(paciente, null, 2))
-    console.log("================================")
     return this.http.post<any>(`${this.pacientesUrl}`, paciente /*,this.token*/).pipe(
       tap(response => console.log('respo : '+response)));
   }

@@ -15,5 +15,5 @@ export interface ExameED {
   valor: number;
   atendente: AtendenteED;
   observacao: string;
-
+  isAtivo: boolean;
 }

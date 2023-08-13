@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { EnderecoED } from 'src/app/models/EnderecoED';
 import { LocalED } from 'src/app/models/LocalED';
 import { LocalService } from 'src/app/service/local.service';
@@ -34,7 +33,6 @@ export class CadastrarLocalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private localService: LocalService,
-    private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {

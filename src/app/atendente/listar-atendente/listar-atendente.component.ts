@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { AtendenteED } from 'src/app/models/AtendenteED';
 import { AtendenteFiltro } from 'src/app/models/filtros/AtendenteFiltro';
 import { ParametroAtendenteRequest } from 'src/app/models/filtros/ParametroAtendenteRequest';
@@ -29,7 +28,6 @@ export class ListarAtendenteComponent implements OnInit {
 
   constructor(
     private atendenteService: AtendenteService,
-    private toastr: ToastrService,
     ){}
 
   ngOnInit(): void {

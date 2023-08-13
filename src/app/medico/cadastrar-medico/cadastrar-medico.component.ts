@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { AtendenteED } from 'src/app/models/AtendenteED';
 import { MedicoED } from 'src/app/models/MedicoED';
 import { AtendenteService } from 'src/app/service/atendente.service';
@@ -25,7 +24,6 @@ export class CadastrarMedicoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private MedicoService: MedicoService,
-    private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {

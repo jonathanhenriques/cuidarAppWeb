@@ -9,7 +9,6 @@ import {
   FormControl,
 } from '@angular/forms';
 import { error } from 'console';
-import { ToastrService } from 'ngx-toastr';
 import { EnderecoED } from 'src/app/models/EnderecoED';
 import { ExameED } from 'src/app/models/ExameED';
 import { PacienteED } from 'src/app/models/PacienteED';
@@ -35,7 +34,6 @@ export class CadastrarPacienteComponent implements OnInit {
   constructor(
     private pacienteService: PacienteService,
     private fb: FormBuilder,
-    // private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {

@@ -7,7 +7,7 @@ import { CadastrarExameComponent } from './cadastrar-exame/cadastrar-exame.compo
 const routes: Routes = [
   { path: 'listar', component: ListarExamesComponent  },
   { path: 'detalhes-exame/:codigo', component: DetailsExameComponent  },
-  { path: 'cadastrar', component: CadastrarExameComponent  },
+  { path: 'cadastrar/:codigo', component: CadastrarExameComponent  },
 ];
 
 @NgModule({

@@ -28,11 +28,17 @@ nav a {
   color: #fff; /* cor do texto dos links */
   text-decoration: none; /* remove sublinhado dos links */
   display: block; /* torna o link um bloco para ocupar a largura total da barra lateral */
+
 }
 
 nav a:hover {
   background-color: #555; /* cor de fundo ao passar o mouse sobre os links */
 }
+
+a {
+  cursor: pointer;
+}
+
 
 
 @media (max-width: 767px) {

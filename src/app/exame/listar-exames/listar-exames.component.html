@@ -1,4 +1,4 @@
-<div class="container">
+<div #ParaImprimir class="container">
 
 
   <div class="parametros-selecao">
@@ -67,18 +67,23 @@
       </div>
   </div>
 
-  <button class="botao-pesquisar" (click)="listarExames(0)">Pesquisar</button>
+  <button class="botao-pesquisar btn btn-success" (click)="listarExames(0)">Pesquisar</button>
 
   <h1 class="titulo">Todos os Exames</h1>
 
-  <table class="table table-hover">
+
+ 
+
+
+  <table #ExameListaOculta class="table table-hover">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Nome</th>
+        <th scope="col">Exame</th>
+        <th scope="col">Paciente</th>
         <th scope="col">data Exame</th>
-        <th scope="col">Adicionar</th>
-        <th scope="col">Apagar</th>
+        <th scope="col">Cancelar</th>
+        <th scope="col">Ativar</th>
       </tr>
     </thead>
     <tbody>
@@ -87,8 +92,8 @@
         <td><a [routerLink]="['/detalhes-exame', exame?.codigo]">{{ exame.nomeExame }}</a></td>
         <td>{{ exame.paciente?.nome }}</td>
         <td>{{ exame.dataExame | date : "dd/MM/yyyy" }}</td>
-        <!-- <td><button (click)="adicionarPaciente(paciente)">Adicionar</button></td> -->
-        <!-- <td><button (click)="apagarPaciente(paciente)">Apagar</button></td> -->
+        <td><button class="btn btn-danger" (click)="cancelarExame(exame?.codigo)">Cancelar</button></td>
+        <td *ngIf="!exame?.isAtivo" ><button class="btn btn-warning" (click)="ativarExame(exame?.codigo)">Ativar</button></td>
       </tr>
     </tbody>
   </table>

@@ -1,3 +1,4 @@
+import { ViewChild, ElementRef } from '@angular/core';
 // import { DialogExame } from 'src/app/shared/dialog-util/dialog-exame.component';
 import { Component, OnInit } from '@angular/core';
 import { ContatoED } from 'src/app/models/ContatoED';
@@ -15,6 +16,8 @@ import { PacienteService } from 'src/app/service/paciente.service';
   styleUrls: ['./listar-pacientes.component.scss'],
 })
 export class ListarPacientesComponent implements OnInit {
+
+  @ViewChild('content', {static: false}) el: ElementRef;
 
   private paciente: PacienteED;
   pacientePassado: PacienteED;
@@ -111,6 +114,16 @@ export class ListarPacientesComponent implements OnInit {
       this.pacientes = dataPacientes;
       });
   }
+
+
+  // printSimplePDF(){
+  //   let pdf = new jsPDF('p',  'pt',   'a4');
+  //   pdf.html(this.el.nativeElement, {
+  //     callback: (pdf) => {
+  //       pdf.save('testePDF.pdf');
+  //     }
+  //   })
+  // }
 
 
 

@@ -34,7 +34,6 @@ export class ListarLocaisComponent implements OnInit {
 
   constructor(
     private localService: LocalService,
-    // private toastr: ToastrService,
     ){}
 
   ngOnInit(): void {

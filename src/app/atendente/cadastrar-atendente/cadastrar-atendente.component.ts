@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { AtendenteED } from 'src/app/models/AtendenteED';
 import { AtendenteService } from 'src/app/service/atendente.service';
 
@@ -23,7 +22,6 @@ export class CadastrarAtendenteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private atendenteService: AtendenteService,
-    private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {

@@ -8,6 +8,7 @@ import { ExameRoutingModule } from './exame-routing.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { DetailsExameComponent } from './details-exame/details-exame.component';
 import { CadastrarExameComponent } from './cadastrar-exame/cadastrar-exame.component';
+// import { ComponentesModule } from '../componentes/componentes.module';
 
 
 
@@ -27,6 +28,7 @@ import { CadastrarExameComponent } from './cadastrar-exame/cadastrar-exame.compo
 
 
     ExameRoutingModule,
+    // ComponentesModule,
   ]
 })
 export class ExameModule { }
